@@ -2,18 +2,15 @@
 
 ## General info
 
-### Focus:ON is a productivity app that helps to focus on daily tasks. The app has two views:
-
-1. An overview page where the user can see how many pomodoro sessions and tasks she completed on a given day.
-2. A current day view where the user can define tasks for the day and set a pomodoro tracker.
+### Focus:ON is a productivity app that helps to focus on daily tasks using the Pomodoro technique and a to do list. The app also provides an overview page where users can see how they performed in the past couple of days.
 
 ## Technologies
 
-1. React.js
-2. Node.js
-3. Express.js
-4. MySQL
-5. Chakra UI
+- React.js
+- Node.js
+- Express.js
+- MySQL
+- Chakra UI
 
 ## Setup
 
@@ -40,7 +37,7 @@
 1. If there are already tasks for the day, the user can see the tasks and a decription of the tasks. He can also mark tasks as done and delete tasks.
 2. The user can set new to-do's.
 3. Pomodoro tracker with buttons for start, timeout/continue and reset and a noise for when the tracker is started or the user is done with the pomodoro session.
-4. User can see how many sessions she already completed.
+4. User can see how many sessions she has already completed.
 
 ## Future features
 
