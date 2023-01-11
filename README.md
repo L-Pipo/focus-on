@@ -16,7 +16,7 @@
 
 1. Install MySQL
 2. Clone repository
-3. Configure .env file for your database instance
+3. Configure .env file for your database instance (create new database with the name focus)
 4. Run `npm install`
 5. Run `npm run migrate`
 6. Run `npm start` to start backend server
