@@ -36,7 +36,9 @@ router.get("/:day", async function (req, res, next) {
 
 router.post("/", async (req, res) => {
   let { title, description, day_id, completed } = req.body;
-
+  // if (title.includes("'")) {
+  //   console.log("testError");
+  // }
   let sql = `
       INSERT INTO tasks (title, description, day_id, completed)
       VALUES ('${title}', '${description}', ${day_id}, ${completed})
