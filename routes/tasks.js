@@ -36,13 +36,29 @@ router.get("/:day", async function (req, res, next) {
 
 router.post("/", async (req, res) => {
   let { title, description, day_id, completed } = req.body;
+  if (title.indexOf("'") !== -1) {
+    let index = title.indexOf("'");
+    let firstSubStr = title.substring(0, index);
+    let secSubStr = title.substring(index);
+    let newTitle = `${firstSubStr}/${secSubStr}`;
+    console.log(newTitle);
+    // console.log(firstSubStr);
+    // console.log(secSubStr);
+  }
+  // if title includes ' (also description?)
+  // find index of '
+  // two substrings, seperate at '
+  // before ' include / and assign this to title/description variable
+  // use this variable in sql request
+  //
   // if (title.includes("'")) {
-  //   console.log("testError");
+  //   console.log(title.indexOf("'"));
   // }
   let sql = `
       INSERT INTO tasks (title, description, day_id, completed)
       VALUES ('${title}', '${description}', ${day_id}, ${completed})
   `;
+  console.log(title);
   try {
     await db(sql);
     let result = await db("SELECT * FROM tasks");
