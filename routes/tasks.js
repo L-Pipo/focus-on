@@ -40,20 +40,14 @@ router.post("/", async (req, res) => {
     let index = title.indexOf("'");
     let firstSubStr = title.substring(0, index);
     let secSubStr = title.substring(index);
-    let newTitle = `${firstSubStr}/${secSubStr}`;
-    console.log(newTitle);
-    // console.log(firstSubStr);
-    // console.log(secSubStr);
+    title = firstSubStr + "\\" + secSubStr;
   }
-  // if title includes ' (also description?)
-  // find index of '
-  // two substrings, seperate at '
-  // before ' include / and assign this to title/description variable
-  // use this variable in sql request
-  //
-  // if (title.includes("'")) {
-  //   console.log(title.indexOf("'"));
-  // }
+  if (description.indexOf("'") !== -1) {
+    let index = description.indexOf("'");
+    let firstSubStr = description.substring(0, index);
+    let secSubStr = description.substring(index);
+    description = firstSubStr + "\\" + secSubStr;
+  }
   let sql = `
       INSERT INTO tasks (title, description, day_id, completed)
       VALUES ('${title}', '${description}', ${day_id}, ${completed})
