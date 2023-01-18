@@ -35,22 +35,12 @@ router.get("/:day", async function (req, res, next) {
 // INSERT a new task into the DB
 
 router.post("/", async (req, res) => {
-  let { title, description, day_id, completed } = req.body;
-  if (title.indexOf("'") !== -1) {
-    let index = title.indexOf("'");
-    let firstSubStr = title.substring(0, index);
-    let secSubStr = title.substring(index);
-    title = firstSubStr + "\\" + secSubStr;
-  }
-  if (description.indexOf("'") !== -1) {
-    let index = description.indexOf("'");
-    let firstSubStr = description.substring(0, index);
-    let secSubStr = description.substring(index);
-    description = firstSubStr + "\\" + secSubStr;
-  }
+  let { title, description, day_id, completed, user_id } = req.body;
+  title = escapeQuote(title);
+  description = escapeQuote(description);
   let sql = `
-      INSERT INTO tasks (title, description, day_id, completed)
-      VALUES ('${title}', '${description}', ${day_id}, ${completed})
+      INSERT INTO tasks (title, description, day_id, completed, user_id)
+      VALUES ('${title}', '${description}', ${day_id}, ${completed}, ${user_id} )
   `;
   console.log(title);
   try {
@@ -62,6 +52,16 @@ router.post("/", async (req, res) => {
     res.status(500).send({ error: err.message });
   }
 });
+
+function escapeQuote(potentiallyQuoted) {
+  if (potentiallyQuoted.indexOf("'") !== -1) {
+    let index = potentiallyQuoted.indexOf("'");
+    let firstSubStr = potentiallyQuoted.substring(0, index);
+    let secSubStr = potentiallyQuoted.substring(index);
+    potentiallyQuoted = firstSubStr + "\\" + secSubStr;
+  }
+  return potentiallyQuoted;
+}
 
 // DELETE a task from DB
 
