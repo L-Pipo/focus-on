@@ -142,6 +142,7 @@ function Tracker(props) {
                 icon={<InfoOutlineIcon />}
                 bg="#251B37"
                 color="#FFCACA"
+                _hover={{ background: "#372948" }}
                 size="lg"
               />
             </PopoverTrigger>
