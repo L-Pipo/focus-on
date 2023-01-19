@@ -24,7 +24,9 @@ function ensureUserLoggedIn(req, res, next) {
 
 /**
  * Make sure user is logged in and is accessing his/her own page.
- * i.e. userId in token === userId in URL param
+ * i.e. userId in token === userId in URL param (route)
+ * right now I don't use ensureSameUser - Do I need it somewhere?
+ * btw we have to make it a number because params are by default strings
  **/
 
 function ensureSameUser(req, res, next) {
