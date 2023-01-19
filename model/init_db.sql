@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS users;
 SET foreign_key_checks = 1;
 
 CREATE TABLE `days` (
-	`date` DATE NOT NULL,
+	`date` varchar(255) NOT NULL,
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`user_id` INT NOT NULL,
 	PRIMARY KEY (`id`)
