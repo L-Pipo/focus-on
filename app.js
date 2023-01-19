@@ -9,6 +9,8 @@ var indexRouter = require("./routes/index");
 var tasksRouter = require("./routes/tasks");
 var daysRouter = require("./routes/days");
 var pomodoroRouter = require("./routes/pomodoro");
+var authRouter = require("./routes/auth");
+var usersRouter = require("./routes/users");
 
 // var focusRouter = require("./routes/focus");
 
@@ -30,7 +32,8 @@ app.use("/tasks", tasksRouter);
 app.use("/days", daysRouter);
 app.use("/pomodoro", pomodoroRouter);
 
-// app.use("/focus", focusRouter);
+app.use("/users", usersRouter);
+app.use("/", authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

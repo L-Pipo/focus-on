@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS users;
 SET foreign_key_checks = 1;
 
 CREATE TABLE `days` (
-	`date` DATE NOT NULL,
+	`date` varchar(255) NOT NULL,
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`user_id` INT NOT NULL,
 	PRIMARY KEY (`id`)
@@ -51,65 +51,12 @@ ALTER TABLE `pomodoro` ADD CONSTRAINT `pomodoro_fk1` FOREIGN KEY (`user_id`) REF
 
 
 
--- SET foreign_key_checks = 0;
-
--- DROP TABLE IF EXISTS `days`;
--- DROP TABLE IF EXISTS tasks;
--- DROP TABLE IF EXISTS pomodoro;
--- DROP TABLE IF EXISTS users;
-
--- SET foreign_key_checks = 1;
-
-
--- CREATE TABLE `days` (
--- 	`id` INT NOT NULL AUTO_INCREMENT,
--- 	`date` varchar(20) NOT NULL,
--- 	`user_id` INT NOT NULL,
--- 	PRIMARY KEY (`id`)
--- );
-
-
--- CREATE TABLE `tasks` (
--- 	`id` INT NOT NULL AUTO_INCREMENT,
--- 	`title` varchar(255) NOT NULL,
--- 	`description` varchar(255) NOT NULL,
--- 	`day_id` INT NOT NULL,
--- 	`completed` BOOLEAN NOT NULL,
--- 	`user_id` INT NOT NULL,
--- 	PRIMARY KEY (`id`)
--- );
-
-
-
--- CREATE TABLE `pomodoro` (
--- 	`id` INT NOT NULL AUTO_INCREMENT,
--- 	`day_id` INT NOT NULL,
--- 	`user_id` INT NOT NULL,
--- 	PRIMARY KEY (`id`)
--- );
-
--- CREATE TABLE users (
---  	`id` INT NOT NULL AUTO_INCREMENT,
---     `username` VARCHAR(30) NOT NULL UNIQUE,
---     `password` VARCHAR(200) NOT NULL,
---     `email` VARCHAR(200) NOT NULL
--- 	PRIMARY KEY (`id`)
--- );
-
--- ALTER TABLE `tasks` ADD CONSTRAINT `tasks_fk0` FOREIGN KEY (`day_id`) REFERENCES `days`(`id`);
--- ALTER TABLE `tasks` ADD CONSTRAINT `tasks_fk1` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`);
-
--- ALTER TABLE `pomodoro` ADD CONSTRAINT `pomodoro_fk0` FOREIGN KEY (`day_id`) REFERENCES `days`(`id`);
--- ALTER TABLE `pomodoro` ADD CONSTRAINT `pomodoro_fk1` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`);
-
-
 -- SAMPLE DATA
 
 INSERT INTO users (username, password, email)
 	VALUES
-	('user1', 'pass1', 'user1@dev.com'),
-	('user2', 'pass2', 'user2@dev.com'),
-	('user3', 'pass3', 'user3@dev.com');
+	('user4', '$2b$12$TNlbI2f2soqWyJSRaqMDmuAPp/OFqcAG117k/UC4l.zkjKoudI4F6', 'user4@dev.com'),
+	('user5', '$2b$12$nP6txao2VKTm0/zyh5vb8ek5w/W0labhEOpVgn2KiURm1KH/W44OC', 'user5@dev.com');
 
 INSERT INTO days (date, user_id)
     VALUES ("27.10.2022", 1), ("28.10.2022", 2), ("29.10.2022", 2), ("30.10.2022", 2), ("31.10.2022", 2);
