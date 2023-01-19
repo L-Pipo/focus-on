@@ -49,7 +49,8 @@ ALTER TABLE `pomodoro` ADD CONSTRAINT `pomodoro_fk0` FOREIGN KEY (`day_id`) REFE
 
 ALTER TABLE `pomodoro` ADD CONSTRAINT `pomodoro_fk1` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`);
 
-
+-- When adding Sample Data it is important to respect contstraints and relations
+-- Order of sample data matters
 
 -- SAMPLE DATA
 
