@@ -4,10 +4,13 @@ const db = require("../model/helper");
 
 // GET pomodoro sessions for a specific day
 
-router.get("/:day", async (req, res) => {
+router.get("/:userId/:day", async (req, res) => {
+  let userId = req.params.userId;
   let dayId = req.params.day;
   try {
-    let results = await db(`SELECT * FROM pomodoro WHERE day_id = ${dayId}`);
+    let results = await db(
+      `SELECT * FROM pomodoro WHERE user_id=${userId} AND day_id = ${dayId}`
+    );
     let sessions = results.data;
     if (sessions.length === 0) {
       res.status(404).send({
@@ -23,11 +26,15 @@ router.get("/:day", async (req, res) => {
 
 // POST new pomodoro session
 
-router.post("/", async (req, res) => {
+// data that is being send back doesn't make sense
+// for what is it needed?
+
+router.post("/:userId", async (req, res) => {
+  let userId = req.params.userId;
   let { day_id } = req.body;
   let sql = `
-        INSERT INTO pomodoro (day_id)
-        VALUES (${day_id})
+        INSERT INTO pomodoro (day_id, user_id)
+        VALUES (${day_id}, ${userId})
     `;
   try {
     await db(sql);
