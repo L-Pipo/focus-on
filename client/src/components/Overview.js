@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import { SimpleGrid, Grid, GridItem, Text } from "@chakra-ui/react";
 
+import Local from "../helpers/Local";
+
 import DayCard from "./DayCard";
 import AddDay from "./AddDay";
 
@@ -13,8 +15,9 @@ function Overview(props) {
   }, []);
 
   async function getOverviewData() {
+    let id = Local.getUserId();
     try {
-      let response = await fetch("/days");
+      let response = await fetch(`/days/${id}`);
       if (response.ok) {
         console.log(response);
         let overviewData = await response.json();

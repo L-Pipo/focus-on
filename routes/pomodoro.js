@@ -29,12 +29,12 @@ router.get("/:userId/:day", async (req, res) => {
 // data that is being send back doesn't make sense
 // for what is it needed?
 
-router.post("/:userId", async (req, res) => {
-  let userId = req.params.userId;
-  let { day_id } = req.body;
+router.post("/", async (req, res) => {
+  // let userId = req.params.userId;
+  let { day_id, user_id } = req.body;
   let sql = `
         INSERT INTO pomodoro (day_id, user_id)
-        VALUES (${day_id}, ${userId})
+        VALUES (${day_id}, ${user_id})
     `;
   try {
     await db(sql);

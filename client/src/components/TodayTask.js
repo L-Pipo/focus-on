@@ -18,6 +18,8 @@ import {
 } from "@chakra-ui/react";
 import { CheckIcon, DeleteIcon } from "@chakra-ui/icons";
 
+import Local from "../helpers/Local";
+
 const INIT_STATE = {
   todo: "",
   description: "",
@@ -25,6 +27,8 @@ const INIT_STATE = {
 
 function TodayTask(props) {
   let [inputData, setInputData] = useState(INIT_STATE);
+
+  let userId = Local.getUserId();
 
   function handleChange(event) {
     let { name, value } = event.target;
@@ -46,6 +50,7 @@ function TodayTask(props) {
       description: inputData.description,
       day_id: props.currentDayData.id,
       completed: 0,
+      user_id: userId,
     };
 
     let options = {

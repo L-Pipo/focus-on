@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import { Text, Button, Grid, GridItem, SimpleGrid } from "@chakra-ui/react";
 
 import TodayTask from "./TodayTask";
 import Tracker from "./Tracker";
+
+import Local from "../helpers/Local";
 
 function CurrentDay(props) {
   let { id } = useParams();
@@ -14,9 +16,17 @@ function CurrentDay(props) {
     getCurrentDayData();
   }, []);
 
+  // get userId via helpers --> Locale and not params!
+
+  let userId = Local.getUserId();
+
+  let linkToOverview = `/focus/${userId}`;
+
+  let navigate = useNavigate();
+
   async function getCurrentDayData() {
     try {
-      let response = await fetch(`/days/${id}`);
+      let response = await fetch(`/days/${userId}/currentday/${id}`);
       if (response.ok) {
         let currentDayData = await response.json();
 
@@ -28,6 +38,10 @@ function CurrentDay(props) {
     } catch (err) {
       console.log(`Server error: ${err.message}`);
     }
+  }
+
+  function changeView() {
+    navigate(linkToOverview);
   }
 
   return (
@@ -71,8 +85,9 @@ function CurrentDay(props) {
         mb={4}
         p={6}
         fontSize="lg"
+        onClick={changeView}
       >
-        <Link to="/">Go back to overview</Link>
+        Go back to overview
       </Button>
     </div>
   );

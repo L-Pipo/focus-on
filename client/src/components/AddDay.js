@@ -1,10 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+import Local from "../helpers/Local";
+
 import { Button, Grid, GridItem, Text } from "@chakra-ui/react";
 
 function AddDay(props) {
   const navigate = useNavigate();
+
+  let userId = Local.getUserId();
 
   async function insertDay() {
     let options = {
@@ -15,11 +19,11 @@ function AddDay(props) {
     };
 
     try {
-      let response = await fetch("/days", options);
+      let response = await fetch(`/days/${userId}`, options);
       if (response.ok) {
         let newDay = await response.json();
         let dayId = newDay[0].id;
-        navigate(`/focus/${dayId}`);
+        navigate(`/current/${dayId}`);
       } else {
         console.log(`Server error: ${response.status} ${response.statusText}`);
       }

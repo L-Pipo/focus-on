@@ -20,12 +20,16 @@ import {
   PopoverCloseButton,
 } from "@chakra-ui/react";
 
+import Local from "../helpers/Local";
+
 import { InfoOutlineIcon } from "@chakra-ui/icons";
 import clicksound from "../assets/clicksound.mp3";
 
 function Tracker(props) {
   let [time, setTime] = useState(1500);
   let [intervalId, setIntervalId] = useState(null);
+
+  let userId = Local.getUserId();
 
   function play() {
     new Audio(clicksound).play();
@@ -55,7 +59,7 @@ function Tracker(props) {
       setTime(() => 1500);
 
       async function sendNewSession() {
-        let session = { day_id: props.dayId };
+        let session = { day_id: props.dayId, user_id: userId };
         let options = {
           method: "POST",
           headers: {
