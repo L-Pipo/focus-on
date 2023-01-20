@@ -8,6 +8,9 @@ function DayCard(props) {
   let completedTasks = 0;
   let tasks = props.overviewData.tasks;
 
+  // click on card navigates to /focus/:id
+  // use params uses the id provided in this file
+
   let linkToFocusView = `/focus/${props.overviewData.id}`;
 
   function getCompletedTasks() {
