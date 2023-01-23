@@ -44,7 +44,6 @@ function App() {
     Local.removeUserInfo();
     setUser(null);
     navigate("/");
-    console.log("test");
   }
 
   return (
@@ -63,7 +62,17 @@ function App() {
             }
           />
 
-          <Route path="/register" element={<RegisterView />} />
+          <Route
+            path="/register"
+            element={
+              <RegisterView
+                loginCb={(u, p) => doLogin(u, p)}
+                loginError={loginErrorMsg}
+              />
+            }
+          />
+
+          {/* <Route path="/register" element={<RegisterView />} /> */}
 
           <Route
             path="/focus/:userId"

@@ -13,14 +13,19 @@ import Local from "./Local";
  **/
 
 class Api {
-  /**
-   * Log in a user
-   **/
+  //Log in a user
 
   static async loginUser(username, password) {
     let body = { username, password };
 
     return await this._doFetch("/login", "POST", body);
+  }
+
+  // Register new user
+
+  static async registerUser(newUserObj) {
+    // console.log(newUserObj);
+    return await this._doFetch("/register", "POST", newUserObj);
   }
 
   /**
