@@ -7,7 +7,7 @@ import { Box, Heading, Text, Button, Container } from "@chakra-ui/react";
 
 function Error404View() {
   return (
-    <Container margin="0px">
+    <div>
       <NavBar />
       <Box textAlign="center" py={10} px={6}>
         <Heading
@@ -32,10 +32,10 @@ function Error404View() {
           color="white"
           variant="solid"
         >
-          <Link to="/">Go back to overview</Link>
+          <Link to="/">Go back to Landing Page</Link>
         </Button>
       </Box>
-    </Container>
+    </div>
   );
 }
 
