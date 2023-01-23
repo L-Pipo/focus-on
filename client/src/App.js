@@ -44,6 +44,7 @@ function App() {
     Local.removeUserInfo();
     setUser(null);
     navigate("/");
+    console.log("test");
   }
 
   return (
@@ -77,7 +78,7 @@ function App() {
             path="/current/:id"
             element={
               <PrivateRoute>
-                <CurrentDay />
+                <CurrentDay logoutCb={doLogout} />
               </PrivateRoute>
             }
           />

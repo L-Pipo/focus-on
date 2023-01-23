@@ -47,14 +47,7 @@ function CurrentDay(props) {
 
   return (
     <div>
-      <NavBar />
-      {/* <Grid templateColumns="1">
-        <GridItem color="#FFECEF" justifySelf="end" mr={10} mb={2}>
-          <Text fontSize="6xl" fontWeight="bold">
-            Focus:ON
-          </Text>
-        </GridItem>
-      </Grid> */}
+      <NavBar logoutCb={props.logoutCb} changeViewCb={props.changeView} />
       <Grid>
         <GridItem mb={8}>
           <Text color="#FFECEF" fontSize="3xl">
