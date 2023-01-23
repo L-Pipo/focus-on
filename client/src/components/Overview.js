@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { SimpleGrid, Grid, GridItem, Text, Button } from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 
 import Local from "../helpers/Local";
 

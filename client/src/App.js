@@ -37,6 +37,7 @@ function App() {
       navigate(`/focus/${userId}`);
     } else {
       setLoginErrorMsg("Login failed");
+      // alert("Login failed");
     }
   }
 
@@ -71,8 +72,6 @@ function App() {
               />
             }
           />
-
-          {/* <Route path="/register" element={<RegisterView />} /> */}
 
           <Route
             path="/focus/:userId"

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import NavBar from "./NavBar";
 
-import { Box, Heading, Text, Button, Container } from "@chakra-ui/react";
+import { Box, Heading, Text, Button } from "@chakra-ui/react";
 
 function Error404View() {
   return (

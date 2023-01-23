@@ -7,6 +7,9 @@ import {
   Stack,
   InputGroup,
   InputLeftElement,
+  Alert,
+  AlertIcon,
+  AlertTitle,
 } from "@chakra-ui/react";
 
 function LoginView(props) {
@@ -42,7 +45,10 @@ function LoginView(props) {
 
       <div className="LoginView row">
         {props.loginError && (
-          <div className="alert alert-danger">{props.loginError}</div>
+          <Alert status="error" marginBottom="15px" borderRadius="10px">
+            <AlertIcon />
+            <AlertTitle>Login failed!</AlertTitle>
+          </Alert>
         )}
 
         <form onSubmit={handleSubmit}>
