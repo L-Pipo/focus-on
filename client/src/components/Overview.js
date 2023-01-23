@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-import { SimpleGrid, Grid, GridItem, Text } from "@chakra-ui/react";
+import { SimpleGrid, Grid, GridItem, Text, Container } from "@chakra-ui/react";
 
 import Local from "../helpers/Local";
 
 import DayCard from "./DayCard";
 import AddDay from "./AddDay";
+import NavBar from "./NavBar";
 
 function Overview(props) {
   let [overviewData, setOverviewData] = useState([]);
@@ -49,10 +50,29 @@ function Overview(props) {
 
   return (
     <div>
-      <Grid templateColumns="1">
-        <GridItem color="#FFECEF" fontWeight="bold" justifySelf="end" mr={10}>
+      <Grid
+        height="100px"
+        templateRows="repeat(2, 1fr)"
+        templateColumns="repeat(6, 1fr)"
+        gap={6}
+        // alignItems="center"
+      >
+        {/* <Container display="flex" marginLeft="10px"> */}
+        <GridItem
+          color="#FFECEF"
+          fontWeight="bold"
+          justifySelf="start"
+          marginLeft="10%"
+          rowSpan={2}
+          colSpan={2}
+        >
           <Text fontSize="6xl">Focus:ON</Text>
         </GridItem>
+        <GridItem rowSpan={2} colSpan={2}></GridItem>
+        <GridItem colSpan={2} justifySelf="end" marginRight="5%">
+          <NavBar />
+        </GridItem>
+        {/* </Container> */}
       </Grid>
       {overviewData && !checkDate() && <AddDay overviewData={overviewData} />}
       {/* overviewData is an empty array before getOverviewData() executes.
