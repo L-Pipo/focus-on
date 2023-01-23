@@ -40,10 +40,16 @@ function App() {
     }
   }
 
+  function doLogout() {
+    Local.removeUserInfo();
+    setUser(null);
+    navigate("/");
+  }
+
   return (
     <ChakraProvider theme={theme}>
       <div className="App">
-        <Routes>
+        <Routes style={{ margin: "0px" }}>
           <Route path="/" element={<WelcomeView />} />
 
           <Route
@@ -62,7 +68,7 @@ function App() {
             path="/focus/:userId"
             element={
               <PrivateRoute>
-                <Overview />
+                <Overview logoutCb={doLogout} />
               </PrivateRoute>
             }
           />

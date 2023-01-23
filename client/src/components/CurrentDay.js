@@ -7,6 +7,7 @@ import TodayTask from "./TodayTask";
 import Tracker from "./Tracker";
 
 import Local from "../helpers/Local";
+import NavBar from "./NavBar";
 
 function CurrentDay(props) {
   let { id } = useParams();
@@ -46,13 +47,14 @@ function CurrentDay(props) {
 
   return (
     <div>
-      <Grid templateColumns="1">
+      <NavBar />
+      {/* <Grid templateColumns="1">
         <GridItem color="#FFECEF" justifySelf="end" mr={10} mb={2}>
           <Text fontSize="6xl" fontWeight="bold">
             Focus:ON
           </Text>
         </GridItem>
-      </Grid>
+      </Grid> */}
       <Grid>
         <GridItem mb={8}>
           <Text color="#FFECEF" fontSize="3xl">

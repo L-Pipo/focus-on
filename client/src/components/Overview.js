@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { SimpleGrid, Grid, GridItem, Text, Container } from "@chakra-ui/react";
+import { SimpleGrid, Grid, GridItem, Text, Button } from "@chakra-ui/react";
 
 import Local from "../helpers/Local";
 
@@ -50,30 +50,7 @@ function Overview(props) {
 
   return (
     <div>
-      <Grid
-        height="100px"
-        templateRows="repeat(2, 1fr)"
-        templateColumns="repeat(6, 1fr)"
-        gap={6}
-        // alignItems="center"
-      >
-        {/* <Container display="flex" marginLeft="10px"> */}
-        <GridItem
-          color="#FFECEF"
-          fontWeight="bold"
-          justifySelf="start"
-          marginLeft="10%"
-          rowSpan={2}
-          colSpan={2}
-        >
-          <Text fontSize="6xl">Focus:ON</Text>
-        </GridItem>
-        <GridItem rowSpan={2} colSpan={2}></GridItem>
-        <GridItem colSpan={2} justifySelf="end" marginRight="5%">
-          <NavBar />
-        </GridItem>
-        {/* </Container> */}
-      </Grid>
+      <NavBar logoutCb={props.logoutCb} />
       {overviewData && !checkDate() && <AddDay overviewData={overviewData} />}
       {/* overviewData is an empty array before getOverviewData() executes.
       If overviewData gets passed to DayCard before the data from the asynchronous function has arrived, it will be undefined.
