@@ -14,9 +14,13 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Image,
+  Box,
 } from "@chakra-ui/react";
 
 import { HamburgerIcon } from "@chakra-ui/icons";
+
+import logo from "../assets/logo.png";
 
 function NavBar(props) {
   const [isDesktop, setDesktop] = useState(false);
@@ -44,7 +48,7 @@ function NavBar(props) {
       {!isDesktop ? (
         <Container margin="0px" width="100%" maxW="100%">
           <Grid
-            height="100px"
+            height="150px"
             templateColumns="repeat(4, 1fr)"
             width="100%"
             margin="0px"
@@ -56,19 +60,21 @@ function NavBar(props) {
               colSpan={2}
               marginLeft="15px"
             >
-              <Text fontSize="6xl">Focus:ON</Text>
+              <Box boxSize="sm">
+                <Image src={logo} alt="logo" />
+              </Box>
             </GridItem>
             <GridItem colSpan="1"></GridItem>
             <GridItem
               justifySelf="end"
-              marginTop="15px"
+              marginTop="25px"
               colSpan="1"
-              marginRight="15px"
+              marginRight="20px"
             >
               <Menu>
                 <MenuButton>
                   <HamburgerIcon
-                    fontSize="4xl"
+                    fontSize="5xl"
                     color="
                 "
                   />
@@ -94,7 +100,7 @@ function NavBar(props) {
       ) : (
         <Container margin="0px" width="100%" maxW="100%">
           <Grid
-            height="100px"
+            height="150px"
             templateColumns="repeat(6, 1fr)"
             width="100%"
             margin="0px"
@@ -106,11 +112,14 @@ function NavBar(props) {
               colSpan={2}
               marginLeft="15px"
             >
-              <Text fontSize="6xl">Focus:ON</Text>
+              {" "}
+              <Box boxSize="sm">
+                <Image src={logo} alt="logo" />
+              </Box>
             </GridItem>
             <GridItem colSpan={2} width="20px"></GridItem>
             <GridItem colSpan={2}>
-              <Container marginTop="5%" color="#FFECEF">
+              <Container marginTop="6%" color="#FFECEF">
                 <Breadcrumb separator=" ">
                   <BreadcrumbItem>
                     <BreadcrumbLink>Profile</BreadcrumbLink>
