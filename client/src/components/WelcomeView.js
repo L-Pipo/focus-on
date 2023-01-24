@@ -30,7 +30,7 @@ function WelcomeView(props) {
           <Heading fontSize="2xl" marginBottom="3%" marginTop="8%">
             Start boosting your productivity today 🤓
           </Heading>
-          <RegisterView loginCb={(u, p) => props.loginCb(u, p)} />
+          <RegisterView loginCb={props.loginCb} />
           <Text>
             Already have an account?{" "}
             <Link color="#FFCACA" href="/login">

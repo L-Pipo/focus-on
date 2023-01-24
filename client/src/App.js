@@ -51,8 +51,6 @@ function App() {
     <ChakraProvider theme={theme}>
       <div className="App">
         <Routes style={{ margin: "0px" }}>
-          <Route path="/" element={<WelcomeView />} />
-
           <Route
             path="/login"
             element={
