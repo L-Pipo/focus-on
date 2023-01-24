@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const db = require("../model/helper");
+const db = require("../model/helper.js");
 
 // GET pomodoro sessions for a specific day
 

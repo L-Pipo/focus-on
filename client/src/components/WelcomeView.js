@@ -24,8 +24,9 @@ function WelcomeView(props) {
       <Box>
         <Image src={logo} />
       </Box>
-      <Grid templateColumns="repeat(7, 1fr)">
-        <GridItem colSpan={4}>
+      <Grid templateColumns="repeat(8, 1fr)">
+        <GridItem colSpan={{ sm: 0, md: 1 }}></GridItem>
+        <GridItem colSpan={{ sm: 7, md: 4 }}>
           <Heading fontSize="2xl" marginBottom="3%" marginTop="8%">
             Start boosting your productivity today 🤓
           </Heading>
@@ -37,8 +38,8 @@ function WelcomeView(props) {
             </Link>
           </Text>
         </GridItem>
-        <GridItem colSpan={3}>
-          <Box boxSize="500px" paddingRight="40px">
+        <GridItem colSpan={{ sm: 7, m: 3 }}>
+          <Box boxSize="500px">
             <Image src={welcomeimg} alt="woman working" />
           </Box>
         </GridItem>
