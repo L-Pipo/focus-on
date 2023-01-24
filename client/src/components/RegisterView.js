@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+
 import {
   Button,
-  Heading,
   Container,
   Input,
   Stack,
@@ -57,25 +57,19 @@ function RegisterView(props) {
 
   return (
     <Container maxW="md" color="white">
-      <Stack spacing="8">
-        <Heading fontsize="lg" mt="50px" mb="30px">
-          Register
-        </Heading>
-      </Stack>
-
       <div className="LoginView row">
         <form onSubmit={handleSubmit}>
           <Stack spacing={4}>
             <InputGroup>
               <InputLeftElement pointerEvents="none" />
               <Input
-                type="text"
-                placeholder="Username"
-                name="usernameInput"
+                type="email"
+                name="emailInput"
                 required
                 className="form-control"
-                value={username}
+                value={email}
                 onChange={handleChange}
+                placeholder="Email"
               />
             </InputGroup>
 
@@ -86,6 +80,18 @@ function RegisterView(props) {
                 fontSize="1.2em"
               />
               <Input
+                marginRight="5px"
+                type="text"
+                placeholder="Username"
+                name="usernameInput"
+                required
+                className="form-control"
+                value={username}
+                onChange={handleChange}
+              />
+
+              <Input
+                marginLeft="5px"
                 type="password"
                 name="passwordInput"
                 required
@@ -93,16 +99,6 @@ function RegisterView(props) {
                 value={password}
                 onChange={handleChange}
                 placeholder="Password"
-              />
-
-              <Input
-                type="email"
-                name="emailInput"
-                required
-                className="form-control"
-                value={email}
-                onChange={handleChange}
-                placeholder="Email"
               />
             </InputGroup>
           </Stack>
@@ -120,7 +116,7 @@ function RegisterView(props) {
             p={6}
             fontSize="lg"
           >
-            Submit
+            Sign up
           </Button>
         </form>
       </div>

@@ -1,48 +1,49 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-import { Heading, Container } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
+import RegisterView from "./RegisterView";
 
-function WelcomeView() {
+import {
+  Heading,
+  Container,
+  Button,
+  Image,
+  Box,
+  Text,
+  Grid,
+  GridItem,
+  Link,
+} from "@chakra-ui/react";
+
+import welcomeimg from "../assets/welcomeimg.png";
+import logo from "../assets/logo.png";
+
+function WelcomeView(props) {
   return (
-    <Container>
-      <Heading fontSize="4xl" marginBottom="10%">
-        Welcome to FocusOn
-      </Heading>
-      <Heading fontSize="2xl">Do you already have an account?</Heading>
-      <Button
-        borderWidth={1}
-        borderColor="#FFECEF"
-        borderRadius={"lg"}
-        bg="#251B37"
-        color="#FFCACA"
-        _hover={{ background: "#372948" }}
-        mt={4}
-        mb={4}
-        p={6}
-        fontSize="lg"
-        marginBottom="5%"
-      >
-        {" "}
-        <Link to="/login">Login</Link>
-      </Button>
-      <Heading fontSize="2xl">Create new acoount</Heading>
-      <Button
-        borderWidth={1}
-        borderColor="#FFECEF"
-        borderRadius={"lg"}
-        bg="#251B37"
-        color="#FFCACA"
-        _hover={{ background: "#372948" }}
-        mt={4}
-        mb={4}
-        p={6}
-        fontSize="lg"
-      >
-        <Link to="/register">Register</Link>
-      </Button>
-    </Container>
+    <div>
+      <Box>
+        <Image src={logo} />
+      </Box>
+      <Grid templateColumns="repeat(7, 1fr)">
+        <GridItem colSpan={4}>
+          <Heading fontSize="2xl" marginBottom="3%" marginTop="8%">
+            Start boosting your productivity today 🤓
+          </Heading>
+          <RegisterView loginCb={(u, p) => props.loginCb(u, p)} />
+          <Text>
+            Already have an account?{" "}
+            <Link color="#FFCACA" href="/login">
+              Sign in here
+            </Link>
+          </Text>
+        </GridItem>
+        <GridItem colSpan={3}>
+          <Box boxSize="500px" paddingRight="40px">
+            <Image src={welcomeimg} alt="woman working" />
+          </Box>
+        </GridItem>
+      </Grid>
+    </div>
   );
 }
 

@@ -64,9 +64,9 @@ function App() {
           />
 
           <Route
-            path="/register"
+            path="/"
             element={
-              <RegisterView
+              <WelcomeView
                 loginCb={(u, p) => doLogin(u, p)}
                 loginError={loginErrorMsg}
               />

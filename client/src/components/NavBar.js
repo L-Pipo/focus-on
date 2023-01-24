@@ -9,7 +9,6 @@ import {
   Button,
   Grid,
   GridItem,
-  Text,
   Menu,
   MenuButton,
   MenuList,
