@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import validator from "validator";
 
 import {
   Button,
@@ -20,21 +21,25 @@ function Register(props) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState(false);
+  const [mailError, setMailError] = useState(false);
 
   async function doRegister() {
-    const newUserObj = {
-      username: username,
-      password: password,
-      email: email,
-    };
-
-    let response = await Api.registerUser(newUserObj);
-    console.log("response reg " + response);
-    if (response.ok) {
-      props.loginCb && props.loginCb(username, password);
+    if (!validator.isEmail(email)) {
+      setMailError(true);
     } else {
-      console.log(`Server error: ${response.status} ${response.statusText}`);
-      setError(true);
+      const newUserObj = {
+        username: username,
+        password: password,
+        email: email,
+      };
+
+      let response = await Api.registerUser(newUserObj);
+      if (response.ok) {
+        props.loginCb && props.loginCb(username, password);
+      } else {
+        console.log(`Server error: ${response.status} ${response.statusText}`);
+        setError(true);
+      }
     }
   }
 
@@ -49,6 +54,7 @@ function Register(props) {
         break;
       case "emailInput":
         setEmail(value);
+        setMailError(false);
         break;
       default:
         break;
@@ -75,13 +81,14 @@ function Register(props) {
           </Alert>
         </Stack>
       )}
+
       <Container>
         <form onSubmit={handleSubmit}>
           <Stack spacing={4}>
             <InputGroup>
               <InputLeftElement pointerEvents="none" />
               <Input
-                type="email"
+                // type="email"
                 name="emailInput"
                 required
                 className="form-control"
@@ -91,6 +98,15 @@ function Register(props) {
                 size="lg"
               />
             </InputGroup>
+
+            {mailError && (
+              <Alert status="error" borderRadius="10px">
+                <AlertIcon />
+                <AlertTitle color="black">
+                  Please insert a valid mail adress
+                </AlertTitle>
+              </Alert>
+            )}
 
             <InputGroup>
               <InputLeftElement
