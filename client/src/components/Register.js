@@ -69,7 +69,7 @@ function Register(props) {
         </Alert>
       )}
       <Container>
-        <FormControl onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <Stack spacing={4}>
             <InputGroup>
               <InputLeftElement pointerEvents="none" />
@@ -132,7 +132,7 @@ function Register(props) {
           >
             Sign up
           </Button>
-        </FormControl>
+        </form>
       </Container>
     </Container>
   );
