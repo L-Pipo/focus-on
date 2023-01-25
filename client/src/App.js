@@ -16,6 +16,8 @@ import LoginView from "./components/LoginView";
 import Footer from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 import WelcomeView from "./components/WelcomeView";
+import ProfileView from "./components/ProfileView";
+import SettingsView from "./components/SettingsView";
 
 function App() {
   const [user, setUser] = useState(Local.getUser());
@@ -86,6 +88,24 @@ function App() {
                 element={
                   <PrivateRoute>
                     <CurrentDay logoutCb={doLogout} />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route
+                path="/profile/:id"
+                element={
+                  <PrivateRoute>
+                    <ProfileView />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route
+                path="/settings/:id"
+                element={
+                  <PrivateRoute>
+                    <SettingsView />
                   </PrivateRoute>
                 }
               />

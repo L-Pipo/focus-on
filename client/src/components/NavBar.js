@@ -1,5 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import Local from "../helpers/Local";
 
 import {
   Breadcrumb,
@@ -24,6 +27,11 @@ import logo from "../assets/logo.png";
 function NavBar(props) {
   const [isDesktop, setDesktop] = useState(false);
 
+  let navigate = useNavigate();
+  let id = Local.getUserId();
+  let linkToProfile = `/profile/${id}`;
+  let linkToSettings = `/settings/${id}`;
+
   useEffect(() => {
     if (window.innerWidth > 1000) {
       setDesktop(true);
@@ -41,6 +49,14 @@ function NavBar(props) {
     window.addEventListener("resize", updateMedia);
     return () => window.removeEventListener("resize", updateMedia);
   }, []);
+
+  function seeProfile() {
+    navigate(linkToProfile);
+  }
+
+  function seeSettings() {
+    navigate(linkToSettings);
+  }
 
   return (
     <div>
@@ -79,10 +95,16 @@ function NavBar(props) {
                   />
                 </MenuButton>
                 <MenuList backgroundColor="#FFECEF" color="#251B37">
-                  <MenuItem _hover={{ backgroundColor: "#FFCACA" }}>
+                  <MenuItem
+                    _hover={{ backgroundColor: "#FFCACA" }}
+                    onClick={seeProfile}
+                  >
                     Profile
                   </MenuItem>
-                  <MenuItem _hover={{ backgroundColor: "#FFCACA" }}>
+                  <MenuItem
+                    _hover={{ backgroundColor: "#FFCACA" }}
+                    onClick={seeSettings}
+                  >
                     Settings
                   </MenuItem>
                   <MenuItem
@@ -116,15 +138,19 @@ function NavBar(props) {
                 <Image src={logo} alt="logo" />
               </Box>
             </GridItem>
-            <GridItem colSpan={2} width="20px"></GridItem>
-            <GridItem colSpan={2}>
+            <GridItem colSpan={3} width="20px"></GridItem>
+            <GridItem colSpan={1}>
               <Container marginTop="6%" color="#FFECEF">
                 <Breadcrumb separator=" ">
                   <BreadcrumbItem>
-                    <BreadcrumbLink>Profile</BreadcrumbLink>
+                    <BreadcrumbLink onClick={seeProfile}>
+                      Profile
+                    </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbItem>
-                    <BreadcrumbLink>Settings</BreadcrumbLink>
+                    <BreadcrumbLink onClick={seeSettings}>
+                      Settings
+                    </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbItem>
                     <Button
