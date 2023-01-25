@@ -10,3 +10,13 @@ html {
   padding: 0;
   width: 100%;
 }
+
+.wrapper {
+  position: relative;
+  min-height: 100vh;
+  background-color: #251b37;
+}
+
+.content-wrap {
+  padding-bottom: 2.5rem;
+}

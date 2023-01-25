@@ -48,52 +48,56 @@ function App() {
   }
 
   return (
-    <ChakraProvider theme={theme}>
-      <div className="App">
-        <Routes style={{ margin: "0px" }}>
-          <Route
-            path="/login"
-            element={
-              <LoginView
-                loginCb={(u, p) => doLogin(u, p)}
-                loginError={loginErrorMsg}
+    <div className="wrapper">
+      <ChakraProvider theme={theme}>
+        <div className="App">
+          <div className="content-wrap">
+            <Routes style={{ margin: "0px" }}>
+              <Route
+                path="/login"
+                element={
+                  <LoginView
+                    loginCb={(u, p) => doLogin(u, p)}
+                    loginError={loginErrorMsg}
+                  />
+                }
               />
-            }
-          />
 
-          <Route
-            path="/"
-            element={
-              <WelcomeView
-                loginCb={(u, p) => doLogin(u, p)}
-                loginError={loginErrorMsg}
+              <Route
+                path="/"
+                element={
+                  <WelcomeView
+                    loginCb={(u, p) => doLogin(u, p)}
+                    loginError={loginErrorMsg}
+                  />
+                }
               />
-            }
-          />
 
-          <Route
-            path="/focus/:userId"
-            element={
-              <PrivateRoute>
-                <Overview logoutCb={doLogout} />
-              </PrivateRoute>
-            }
-          />
+              <Route
+                path="/focus/:userId"
+                element={
+                  <PrivateRoute>
+                    <Overview logoutCb={doLogout} />
+                  </PrivateRoute>
+                }
+              />
 
-          <Route
-            path="/current/:id"
-            element={
-              <PrivateRoute>
-                <CurrentDay logoutCb={doLogout} />
-              </PrivateRoute>
-            }
-          />
+              <Route
+                path="/current/:id"
+                element={
+                  <PrivateRoute>
+                    <CurrentDay logoutCb={doLogout} />
+                  </PrivateRoute>
+                }
+              />
 
-          <Route path="*" element={<Error404View />} />
-        </Routes>
-        <Footer />
-      </div>
-    </ChakraProvider>
+              <Route path="*" element={<Error404View />} />
+            </Routes>
+          </div>
+          <Footer />
+        </div>
+      </ChakraProvider>
+    </div>
   );
 }
 
