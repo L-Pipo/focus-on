@@ -10,7 +10,7 @@ import {
   Alert,
   AlertIcon,
   AlertTitle,
-  FormControl,
+  AlertDescription,
 } from "@chakra-ui/react";
 
 import Api from "../helpers/Api";
@@ -63,10 +63,17 @@ function Register(props) {
   return (
     <Container maxW="md" color="white">
       {error && (
-        <Alert status="error" marginBottom="15px" borderRadius="10px">
-          <AlertIcon />
-          <AlertTitle color="black">Oops something went wrong!</AlertTitle>
-        </Alert>
+        <Stack spacing={2} marginBottom="2%">
+          <Alert status="error" borderRadius="10px">
+            <AlertIcon />
+            <AlertTitle color="black">Oops something went wrong!</AlertTitle>
+          </Alert>
+          <Alert status="error" borderRadius="10px">
+            <AlertDescription color="black">
+              Username might already exist...
+            </AlertDescription>
+          </Alert>
+        </Stack>
       )}
       <Container>
         <form onSubmit={handleSubmit}>
