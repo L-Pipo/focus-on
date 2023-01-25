@@ -32,7 +32,7 @@ function Error404View() {
           color="white"
           variant="solid"
         >
-          <Link to="/">Go back to Landing Page</Link>
+          <Link to="/">Go back</Link>
         </Button>
       </Box>
     </div>

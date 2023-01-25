@@ -8,14 +8,13 @@ import {
   IconButton,
   Box,
   Textarea,
-} from "@chakra-ui/react";
-import {
   Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
 } from "@chakra-ui/react";
+
 import { CheckIcon, DeleteIcon } from "@chakra-ui/icons";
 
 import Local from "../helpers/Local";

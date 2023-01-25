@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import {
   Button,
   Heading,
@@ -13,6 +15,8 @@ import {
   AlertTitle,
   Image,
   Box,
+  Text,
+  Link,
 } from "@chakra-ui/react";
 
 import logo from "../assets/logo.png";
@@ -20,6 +24,8 @@ import logo from "../assets/logo.png";
 function LoginView(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   function handleChange(event) {
     let { name, value } = event.target;
@@ -40,10 +46,14 @@ function LoginView(props) {
     props.loginCb(username, password);
   }
 
+  function navToWelcome() {
+    navigate("/");
+  }
+
   return (
     <div>
       <Box>
-        <Image src={logo} />
+        <Image src={logo} onClick={navToWelcome} cursor="pointer" />
       </Box>
       <Container maxW="md" color="white">
         <Stack spacing="8">
@@ -108,6 +118,12 @@ function LoginView(props) {
             >
               Sign in
             </Button>
+            <Text>
+              Don't have an account?{" "}
+              <Link color="#FFCACA" href="/">
+                Sign up here
+              </Link>
+            </Text>
           </form>
         </div>
       </Container>

@@ -5,8 +5,6 @@ import RegisterView from "./RegisterView";
 
 import {
   Heading,
-  Container,
-  Button,
   Image,
   Box,
   Text,

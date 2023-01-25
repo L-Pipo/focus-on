@@ -6,7 +6,7 @@ function PrivateRoute(props) {
   // Redirect to /login if anonymous user
   let userId = Local.getUserId();
   if (!userId) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
   // Render child component(s)
