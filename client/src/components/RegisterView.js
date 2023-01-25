@@ -7,6 +7,9 @@ import {
   Stack,
   InputGroup,
   InputLeftElement,
+  Alert,
+  AlertIcon,
+  AlertTitle,
 } from "@chakra-ui/react";
 
 import Api from "../helpers/Api";
@@ -15,6 +18,7 @@ function RegisterView(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState(false);
 
   async function doRegister() {
     const newUserObj = {
@@ -24,10 +28,12 @@ function RegisterView(props) {
     };
 
     let response = await Api.registerUser(newUserObj);
+    console.log("response reg " + response);
     if (response.ok) {
       props.loginCb && props.loginCb(username, password);
     } else {
       console.log(`Server error: ${response.status} ${response.statusText}`);
+      setError(true);
     }
   }
 
@@ -51,12 +57,16 @@ function RegisterView(props) {
   function handleSubmit(event) {
     event.preventDefault();
     doRegister();
-    props.loginCb(username, password);
-    console.log("register button was clicked");
   }
 
   return (
     <Container maxW="md" color="white">
+      {error && (
+        <Alert status="error" marginBottom="15px" borderRadius="10px">
+          <AlertIcon />
+          <AlertTitle color="black">Oops something went wrong!</AlertTitle>
+        </Alert>
+      )}
       <div className="LoginView row">
         <form onSubmit={handleSubmit}>
           <Stack spacing={4}>

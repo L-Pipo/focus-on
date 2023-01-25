@@ -66,7 +66,7 @@ function LoginView(props) {
           {props.loginError && (
             <Alert status="error" marginBottom="15px" borderRadius="10px">
               <AlertIcon />
-              <AlertTitle>Login failed!</AlertTitle>
+              <AlertTitle color="black">Login failed!</AlertTitle>
             </Alert>
           )}
 
