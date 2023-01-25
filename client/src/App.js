@@ -16,7 +16,6 @@ import LoginView from "./components/LoginView";
 import Footer from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 import WelcomeView from "./components/WelcomeView";
-import RegisterView from "./components/RegisterView";
 
 function App() {
   const [user, setUser] = useState(Local.getUser());

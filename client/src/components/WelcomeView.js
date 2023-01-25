@@ -1,7 +1,7 @@
 import React from "react";
 // import { Link } from "react-router-dom";
 
-import RegisterView from "./RegisterView";
+import Register from "./Register";
 
 import {
   Heading,
@@ -22,13 +22,12 @@ function WelcomeView(props) {
       <Box>
         <Image src={logo} />
       </Box>
-      <Grid templateColumns="repeat(8, 1fr)">
-        <GridItem colSpan={{ sm: 0, md: 1 }}></GridItem>
-        <GridItem colSpan={{ sm: 7, md: 4 }}>
-          <Heading fontSize="2xl" marginBottom="3%" marginTop="8%">
+      <Grid templateColumns="repeat(2, 1fr)" placeItems="center">
+        <GridItem colSpan={{ md: 1, sm: 2 }}>
+          <Heading fontSize="3xl" marginBottom="8%">
             Start boosting your productivity today 🤓
           </Heading>
-          <RegisterView loginCb={props.loginCb} />
+          <Register loginCb={props.loginCb} />
           <Text>
             Already have an account?{" "}
             <Link color="#FFCACA" href="/login">
@@ -36,8 +35,8 @@ function WelcomeView(props) {
             </Link>
           </Text>
         </GridItem>
-        <GridItem colSpan={{ sm: 7, m: 3 }}>
-          <Box boxSize="500px">
+        <GridItem colSpan={{ md: 1, sm: 2 }}>
+          <Box>
             <Image src={welcomeimg} alt="woman working" />
           </Box>
         </GridItem>

@@ -10,11 +10,12 @@ import {
   Alert,
   AlertIcon,
   AlertTitle,
+  FormControl,
 } from "@chakra-ui/react";
 
 import Api from "../helpers/Api";
 
-function RegisterView(props) {
+function Register(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -67,8 +68,8 @@ function RegisterView(props) {
           <AlertTitle color="black">Oops something went wrong!</AlertTitle>
         </Alert>
       )}
-      <div className="LoginView row">
-        <form onSubmit={handleSubmit}>
+      <Container>
+        <FormControl onSubmit={handleSubmit}>
           <Stack spacing={4}>
             <InputGroup>
               <InputLeftElement pointerEvents="none" />
@@ -80,6 +81,7 @@ function RegisterView(props) {
                 value={email}
                 onChange={handleChange}
                 placeholder="Email"
+                size="lg"
               />
             </InputGroup>
 
@@ -98,6 +100,7 @@ function RegisterView(props) {
                 className="form-control"
                 value={username}
                 onChange={handleChange}
+                size="lg"
               />
 
               <Input
@@ -109,6 +112,7 @@ function RegisterView(props) {
                 value={password}
                 onChange={handleChange}
                 placeholder="Password"
+                size="lg"
               />
             </InputGroup>
           </Stack>
@@ -128,10 +132,10 @@ function RegisterView(props) {
           >
             Sign up
           </Button>
-        </form>
-      </div>
+        </FormControl>
+      </Container>
     </Container>
   );
 }
 
-export default RegisterView;
+export default Register;
