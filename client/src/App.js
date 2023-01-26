@@ -24,9 +24,6 @@ function App() {
   const [loginErrorMsg, setLoginErrorMsg] = useState("");
   const navigate = useNavigate();
 
-  // not sure if user is set correctly in doLogin function
-  // important or can user state be deleted?
-
   async function doLogin(username, password) {
     let myresponse = await Api.loginUser(username, password);
 
@@ -34,6 +31,7 @@ function App() {
       let userId = myresponse.data.user.id;
       Local.saveUserInfo(myresponse.data.token, myresponse.data.user);
       setUser(myresponse.data.user);
+      // console.dir(user, { depth: null });
       setLoginErrorMsg("");
       navigate(`/focus/${userId}`);
     } else {
