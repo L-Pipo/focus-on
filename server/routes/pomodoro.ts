@@ -1,14 +1,15 @@
-var express = require("express");
-var router = express.Router();
-const db = require("../model/helper.js");
+import express, { Router } from "express";
+import { db } from "../model/helper";
+
+export const pomodoroRouter = Router();
 
 // GET pomodoro sessions for a specific day
 
-router.get("/:userId/:day", async (req, res) => {
+pomodoroRouter.get("/:userId/:day", async (req, res) => {
   let userId = req.params.userId;
   let dayId = req.params.day;
   try {
-    let results = await db(
+    let results: any = await db(
       `SELECT * FROM pomodoro WHERE user_id=${userId} AND day_id = ${dayId}`
     );
     let sessions = results.data;
@@ -19,7 +20,7 @@ router.get("/:userId/:day", async (req, res) => {
     } else {
       res.send(sessions);
     }
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).send({ error: err.message });
   }
 });
@@ -29,7 +30,7 @@ router.get("/:userId/:day", async (req, res) => {
 // data that is being send back doesn't make sense
 // for what is it needed?
 
-router.post("/", async (req, res) => {
+pomodoroRouter.post("/", async (req, res) => {
   // let userId = req.params.userId;
   let { day_id, user_id } = req.body;
   let sql = `
@@ -38,12 +39,10 @@ router.post("/", async (req, res) => {
     `;
   try {
     await db(sql);
-    let result = await db("SELECT * FROM pomodoro");
+    let result: any = await db("SELECT * FROM pomodoro");
     let sessions = result.data;
     res.status(201).send(sessions);
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).send({ error: err.message });
   }
 });
-
-module.exports = router;

@@ -17,12 +17,12 @@ const con = mysql.createConnection({
   dateStrings: true,
 });
 
-con.connect(function (err) {
+con.connect(function (err: any) {
   if (err) throw err;
   console.log("Connected!");
 
   let sql = fs.readFileSync(__dirname + "/init_db.sql").toString();
-  con.query(sql, function (err, result) {
+  con.query(sql, function (err: any, result: any) {
     if (err) throw err;
     console.log("Table creation was successful!");
 

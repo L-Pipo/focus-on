@@ -1,15 +1,17 @@
-var express = require("express");
-var router = express.Router();
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+import express, { Router } from "express";
+import { db } from "../model/helper";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
 const { BCRYPT_WORK_FACTOR, SECRET_KEY } = require("../config");
-const db = require("../model/helper");
+
+export const authRouter = Router();
 
 /**
  * Register a user
  **/
 
-router.post("/register", async (req, res) => {
+authRouter.post("/register", async (req, res) => {
   let { username, password, email } = req.body;
   let hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
@@ -20,7 +22,7 @@ router.post("/register", async (req, res) => {
         `;
     await db(sql);
     res.send({ message: "Registration succeeded" });
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).send({ error: err.message });
   }
 });
@@ -29,11 +31,11 @@ router.post("/register", async (req, res) => {
  * Log in a user
  **/
 
-router.post("/login", async (req, res) => {
+authRouter.post("/login", async (req, res) => {
   let { username, password } = req.body;
 
   try {
-    let results = await db(
+    let results: any = await db(
       `SELECT * FROM users WHERE username = '${username}'`
     );
     if (results.data.length === 0) {
@@ -59,9 +61,7 @@ router.post("/login", async (req, res) => {
         res.status(401).send({ error: "Login failed" });
       }
     }
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).send({ error: err.message });
   }
 });
-
-module.exports = router;

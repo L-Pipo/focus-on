@@ -1,19 +1,16 @@
 import cors from "cors";
-import { Request, Response } from "express";
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+import express, { Request, Response, Router } from "express";
+import createError from "http-errors";
+import path from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
 
-var indexRouter = require("./routes/index");
-var tasksRouter = require("./routes/tasks");
-var daysRouter = require("./routes/days");
-var pomodoroRouter = require("./routes/pomodoro");
-var authRouter = require("./routes/auth");
-var usersRouter = require("./routes/users");
-
-// var focusRouter = require("./routes/focus");
+import { indexRouter } from "./routes";
+import { tasksRouter } from "./routes/tasks";
+import { daysRouter } from "./routes/days";
+import { pomodoroRouter } from "./routes/pomodoro";
+import { authRouter } from "./routes/auth";
+import { usersRouter } from "./routes/users";
 
 var app = express();
 app.use(cors());
@@ -37,12 +34,12 @@ app.use("/users", usersRouter);
 app.use("/", authRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req : any, res : any, next: any) {
+app.use(function (req: any, res: any, next: any) {
   next(createError(404));
 });
 
 // error handler
-app.use(function (err :any, req : Request, res : Response, next :any) {
+app.use(function (err: any, req: Request, res: Response, next: any) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};

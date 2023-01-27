@@ -1,25 +1,26 @@
-var express = require("express");
-var router = express.Router();
-const db = require("../model/helper.js");
+import express, { Router } from "express";
+import { db } from "../model/helper";
+
+export const daysRouter = Router();
 
 // GET all days
 
-router.get("/:userId", async function (req, res, next) {
+daysRouter.get("/:userId", async function (req, res, next) {
   let { userId } = req.params;
 
   try {
     let daysData = [];
 
-    let results = await db(`SELECT * FROM days WHERE user_id=${userId}`);
+    let results: any = await db(`SELECT * FROM days WHERE user_id=${userId}`);
     let days = results.data;
 
     for (let date of days) {
-      let taskResults = await db(
+      let taskResults: any = await db(
         `SELECT * FROM tasks WHERE day_id=${date.id} AND user_id=${userId}`
       );
       let tasks = taskResults.data;
 
-      let pomodoroResults = await db(
+      let pomodoroResults: any = await db(
         `SELECT * from pomodoro WHERE day_id=${date.id} AND user_id=${userId}`
       );
       let pomodoro = pomodoroResults.data;
@@ -34,18 +35,18 @@ router.get("/:userId", async function (req, res, next) {
     }
 
     res.send(daysData);
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).send({ error: err.message });
   }
 });
 
 // GET day
 
-router.get("/:userId/currentday/:id", async function (req, res, next) {
+daysRouter.get("/:userId/currentday/:id", async function (req, res, next) {
   let userId = req.params.userId;
   let dayId = req.params.id;
   try {
-    let results = await db(
+    let results: any = await db(
       `SELECT * FROM days WHERE id=${dayId} AND user_id=${userId}`
     );
     // days is an object
@@ -54,26 +55,26 @@ router.get("/:userId/currentday/:id", async function (req, res, next) {
       res.status(404).send({ error: "Day not found" });
     } else {
       //fetch remaining data: tasks
-      let taskResults = await db(
+      let taskResults: any = await db(
         `SELECT * FROM tasks WHERE day_id=${dayId} AND user_id=${userId}`
       );
       // taskResults is an array with an object inside that gets added to days object
       days[0]["tasks"] = taskResults.data;
       //fetch remaining data: pomodoros
-      let pomodoroResult = await db(
+      let pomodoroResult: any = await db(
         `SELECT * FROM pomodoro WHERE day_id=${dayId} AND user_id=${userId}`
       );
       days[0]["sessions"] = pomodoroResult.data;
       res.send(days[0]);
     }
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).send({ error: err.message });
   }
 });
 
 // POST new day
 
-router.post("/:userId", async function (req, res, next) {
+daysRouter.post("/:userId", async function (req, res, next) {
   let userId = req.params.userId;
 
   let getDay = new Date();
@@ -84,21 +85,19 @@ router.post("/:userId", async function (req, res, next) {
 
   try {
     let day = `SELECT * FROM days WHERE date="${today}" AND user_id=${userId}`;
-    let dayExist = await db(day);
+    let dayExist: any = await db(day);
     if (dayExist.data.length !== 0) {
       res.send({ error: "Day already exists." });
     } else {
       await db(`INSERT INTO days (date, user_id)
       VALUES ("${today}", ${userId})`);
-      let result = await db(
+      let result: any = await db(
         `SELECT * FROM days WHERE date="${today}" AND user_id=${userId}`
       );
       let days = result.data;
       res.status(201).send(days);
     }
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).send({ error: err.message });
   }
 });
-
-module.exports = router;
