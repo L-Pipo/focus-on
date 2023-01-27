@@ -1,44 +1,47 @@
-import express, { Router } from "express";
+import { Router, Request, Response } from "express";
 import { db } from "../model/helper";
 
 export const daysRouter = Router();
 
 // GET all days
 
-daysRouter.get("/:userId", async function (req, res, next) {
-  let { userId } = req.params;
+daysRouter.get(
+  "/:userId",
+  async function (req: Request, res: Response, next: any) {
+    let { userId } = req.params;
 
-  try {
-    let daysData = [];
+    try {
+      let daysData = [];
 
-    let results: any = await db(`SELECT * FROM days WHERE user_id=${userId}`);
-    let days = results.data;
+      let results: any = await db(`SELECT * FROM days WHERE user_id=${userId}`);
+      let days = results.data;
 
-    for (let date of days) {
-      let taskResults: any = await db(
-        `SELECT * FROM tasks WHERE day_id=${date.id} AND user_id=${userId}`
-      );
-      let tasks = taskResults.data;
+      for (let date of days) {
+        let taskResults: any = await db(
+          `SELECT * FROM tasks WHERE day_id=${date.id} AND user_id=${userId}`
+        );
+        let tasks = taskResults.data;
 
-      let pomodoroResults: any = await db(
-        `SELECT * from pomodoro WHERE day_id=${date.id} AND user_id=${userId}`
-      );
-      let pomodoro = pomodoroResults.data;
+        let pomodoroResults: any = await db(
+          `SELECT * from pomodoro WHERE day_id=${date.id} AND user_id=${userId}`
+        );
+        let pomodoro = pomodoroResults.data;
 
-      // build days object with all corresponding data
+        // build days object with all corresponding data
 
-      date["tasks"] = tasks;
-      date["sessions"] = pomodoro;
+        date["tasks"] = tasks;
+        date["sessions"] = pomodoro;
 
-      daysData.push(date);
-      // Alternative code: daysData.push({ ...date, tasks: tasks, sessions: pomodoro });
+        daysData.push(date);
+        // Alternative code: daysData.push({ ...date, tasks: tasks, sessions: pomodoro });
+      }
+
+      res.send(daysData);
+    } catch (err: any) {
+      res.status(500).send({ error: err.message });
     }
-
-    res.send(daysData);
-  } catch (err: any) {
-    res.status(500).send({ error: err.message });
   }
-});
+);
 
 // GET day
 

@@ -62,7 +62,7 @@ tasksRouter.post("/", async (req, res) => {
   }
 });
 
-function escapeQuote(potentiallyQuoted: string) {
+function escapeQuote(potentiallyQuoted: string): string {
   if (potentiallyQuoted.indexOf("'") !== -1) {
     let index = potentiallyQuoted.indexOf("'");
     let firstSubStr = potentiallyQuoted.substring(0, index);
@@ -73,9 +73,6 @@ function escapeQuote(potentiallyQuoted: string) {
 }
 
 // DELETE a task from DB
-
-// do I need a user here?
-// probably not because every task has a unique id
 
 tasksRouter.delete("/:id", async function (req, res, next) {
   let taskId = req.params.id;
@@ -95,9 +92,6 @@ tasksRouter.delete("/:id", async function (req, res, next) {
 });
 
 // UPDATE completed in task
-
-// do I need to input the userId?
-// probaby not because every task has a unique id
 
 tasksRouter.patch("/:id/completed", async function (req, res, next) {
   const taskId = req.params.id;
