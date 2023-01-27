@@ -24,7 +24,7 @@ function WelcomeView(props) {
       </Box>
       <Grid templateColumns="repeat(2, 1fr)" placeItems="center">
         <GridItem colSpan={{ md: 1, sm: 2 }}>
-          <Heading fontSize="3xl" marginBottom="8%">
+          <Heading fontSize="3xl" marginBottom="4%">
             Start boosting your productivity today 🤓
           </Heading>
           <Register loginCb={props.loginCb} />

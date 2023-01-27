@@ -19,14 +19,22 @@ import Api from "../helpers/Api";
 function Register(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState(false);
   const [mailError, setMailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   async function doRegister() {
-    if (!validator.isEmail(email)) {
-      setMailError(true);
-    } else {
+    if (!validator.isEmail(email) || password !== confirmPassword) {
+      if (!validator.isEmail(email)) {
+        setMailError(true);
+      }
+      if (password !== confirmPassword) {
+        setPasswordError(true);
+      }
+    }
+    if (validator.isEmail(email) && password === confirmPassword) {
       const newUserObj = {
         username: username,
         password: password,
@@ -55,6 +63,9 @@ function Register(props) {
       case "emailInput":
         setEmail(value);
         setMailError(false);
+        break;
+      case "passwordConfirm":
+        setConfirmPassword(value);
         break;
       default:
         break;
@@ -88,14 +99,12 @@ function Register(props) {
             <InputGroup>
               <InputLeftElement pointerEvents="none" />
               <Input
-                // type="email"
                 name="emailInput"
                 required
                 className="form-control"
                 value={email}
                 onChange={handleChange}
                 placeholder="Email"
-                size="lg"
               />
             </InputGroup>
 
@@ -109,13 +118,8 @@ function Register(props) {
             )}
 
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                color="gray.300"
-                fontSize="1.2em"
-              />
+              <InputLeftElement pointerEvents="none" />
               <Input
-                marginRight="5px"
                 type="text"
                 placeholder="Username"
                 name="usernameInput"
@@ -123,11 +127,11 @@ function Register(props) {
                 className="form-control"
                 value={username}
                 onChange={handleChange}
-                size="lg"
               />
-
+            </InputGroup>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" />
               <Input
-                marginLeft="5px"
                 type="password"
                 name="passwordInput"
                 required
@@ -135,9 +139,27 @@ function Register(props) {
                 value={password}
                 onChange={handleChange}
                 placeholder="Password"
-                size="lg"
               />
             </InputGroup>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" />
+              <Input
+                type="password"
+                name="passwordConfirm"
+                required
+                className="form-control"
+                value={confirmPassword}
+                onChange={handleChange}
+                placeholder="Confirm Password"
+              />
+            </InputGroup>
+
+            {passwordError && (
+              <Alert status="error" borderRadius="10px">
+                <AlertIcon />
+                <AlertTitle color="black">Passwords don't match</AlertTitle>
+              </Alert>
+            )}
           </Stack>
 
           <Button
@@ -151,7 +173,6 @@ function Register(props) {
             mt={4}
             mb={4}
             p={6}
-            fontSize="lg"
           >
             Sign up
           </Button>
