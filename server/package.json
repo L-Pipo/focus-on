@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "start:dev": "nodemon",
-    "start": "nodemon ./bin/index.js",
     "migrate": "node model/database.js"
   },
   "dependencies": {

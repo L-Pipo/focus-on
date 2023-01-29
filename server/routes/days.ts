@@ -1,5 +1,8 @@
 import { Router, Request, Response } from "express";
 import { db } from "../model/helper";
+import { Day } from "../types/day";
+import { Pomodoro } from "../types/pomodoro";
+import { Task } from "../types/task";
 
 export const daysRouter = Router();
 
@@ -7,36 +10,33 @@ export const daysRouter = Router();
 
 daysRouter.get(
   "/:userId",
-  async function (req: Request, res: Response, next: any) {
+  async function (req: Request, res: Response) {
     let { userId } = req.params;
 
     try {
-      let daysData = [];
+      let resolvedDays: Day[] = [];
 
-      let results: any = await db(`SELECT * FROM days WHERE user_id=${userId}`);
-      let days = results.data;
+      let days: Day[] = (await db(`SELECT * FROM days WHERE user_id=${userId}`)).data;
 
       for (let date of days) {
-        let taskResults: any = await db(
+        let tasks: Task[] = (await db(
           `SELECT * FROM tasks WHERE day_id=${date.id} AND user_id=${userId}`
-        );
-        let tasks = taskResults.data;
+        )).data;
+       
 
-        let pomodoroResults: any = await db(
+        let pomodoros: Pomodoro[] = (await db(
           `SELECT * from pomodoro WHERE day_id=${date.id} AND user_id=${userId}`
-        );
-        let pomodoro = pomodoroResults.data;
+        )).data;
 
         // build days object with all corresponding data
-
         date["tasks"] = tasks;
-        date["sessions"] = pomodoro;
+        date["sessions"] = pomodoros;
 
-        daysData.push(date);
+        resolvedDays.push(date);
         // Alternative code: daysData.push({ ...date, tasks: tasks, sessions: pomodoro });
       }
 
-      res.send(daysData);
+      res.send(resolvedDays);
     } catch (err: any) {
       res.status(500).send({ error: err.message });
     }
@@ -45,7 +45,7 @@ daysRouter.get(
 
 // GET day
 
-daysRouter.get("/:userId/currentday/:id", async function (req, res, next) {
+daysRouter.get("/:userId/currentday/:id", async function (req, res) {
   let userId = req.params.userId;
   let dayId = req.params.id;
   try {
@@ -77,7 +77,7 @@ daysRouter.get("/:userId/currentday/:id", async function (req, res, next) {
 
 // POST new day
 
-daysRouter.post("/:userId", async function (req, res, next) {
+daysRouter.post("/:userId", async function (req, res) {
   let userId = req.params.userId;
 
   let getDay = new Date();

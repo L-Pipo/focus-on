@@ -33,20 +33,20 @@ app.use("/pomodoro", pomodoroRouter);
 app.use("/users", usersRouter);
 app.use("/", authRouter);
 
-// catch 404 and forward to error handler
-app.use(function (req: any, res: any, next: any) {
-  next(createError(404));
-});
+// // catch 404 and forward to error handler
+// app.use(function (req: any, res: any, next: any) {
+//   next(createError(404));
+// });
 
-// error handler
-app.use(function (err: any, req: Request, res: Response, next: any) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+// // error handler
+// app.use(function (err: any, req: Request, res: Response, next: any) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
-});
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render("error");
+// });
 
 export default app;

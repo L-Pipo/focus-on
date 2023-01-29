@@ -1,7 +1,7 @@
 require("dotenv").config();
 const mysql = require("mysql");
 
-export async function db(query: any) {
+export async function db(query: any) : Promise<any> {
   type Results = {
     data: string[];
     error: null | string;
@@ -65,5 +65,5 @@ export async function db(query: any) {
     });
   });
 
-  return promise;
+  return promise as any;
 }
