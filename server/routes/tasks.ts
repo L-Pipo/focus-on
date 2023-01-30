@@ -1,32 +1,22 @@
-import express, { Router } from "express";
+import { Router, Request, Response } from "express";
+
+import { Task } from "../types/task";
+
 import { db } from "../model/helper";
+import { escapeQuote } from "../utils/escapeQuote";
+import { getErrorMessage } from "../utils/getErrorMessage";
 
 export const tasksRouter = Router();
 
-// GET all tasks
-
-// could probably delete route
-
-tasksRouter.get("/:userId", async function (req, res, next) {
-  let userId = req.params.userId;
-  try {
-    let tasks: any = await db(`SELECT * FROM tasks WHERE user_id=${userId}`);
-    res.send(tasks.data);
-  } catch (err: any) {
-    res.status(500).send({ error: err.message });
-  }
-});
-
 // GET all task for a day
 
-tasksRouter.get("/:userId/:day", async function (req, res, next) {
+tasksRouter.get("/:userId/:day", async function (req: Request, res: Response) {
   let userId = req.params.userId;
   let day = req.params.day;
   try {
-    let results: any = await db(
-      `SELECT * FROM tasks WHERE user_id=${userId} AND day_id=${day}`
-    );
-    let tasks = results.data;
+    let tasks: Task[] = (
+      await db(`SELECT * FROM tasks WHERE user_id=${userId} AND day_id=${day}`)
+    ).data;
     if (tasks.length === 0) {
       res
         .status(404)
@@ -34,8 +24,8 @@ tasksRouter.get("/:userId/:day", async function (req, res, next) {
     } else {
       res.send(tasks);
     }
-  } catch (err: any) {
-    res.status(500).send({ error: err.message });
+  } catch (err) {
+    res.status(500).send({ error: getErrorMessage(err) });
   }
 });
 
@@ -43,7 +33,7 @@ tasksRouter.get("/:userId/:day", async function (req, res, next) {
 
 // insert middleware function ensureSameUser in post and delete method?
 
-tasksRouter.post("/", async (req, res) => {
+tasksRouter.post("/", async (req: Request, res: Response) => {
   let { title, description, day_id, completed, user_id } = req.body;
   title = escapeQuote(title);
   description = escapeQuote(description);
@@ -51,58 +41,53 @@ tasksRouter.post("/", async (req, res) => {
       INSERT INTO tasks (title, description, day_id, completed, user_id)
       VALUES ('${title}', '${description}', ${day_id}, ${completed}, ${user_id} )
   `;
-  console.log(title);
   try {
     await db(sql);
-    let result: any = await db(`SELECT * FROM tasks WHERE user_id=${user_id}`);
-    let tasks = result.data;
+    let tasks: Task[] = (
+      await db(`SELECT * FROM tasks WHERE user_id=${user_id}`)
+    ).data;
     res.status(201).send(tasks);
-  } catch (err: any) {
-    res.status(500).send({ error: err.message });
+  } catch (err) {
+    res.status(500).send({ error: getErrorMessage(err) });
   }
 });
 
-function escapeQuote(potentiallyQuoted: string): string {
-  if (potentiallyQuoted.indexOf("'") !== -1) {
-    let index = potentiallyQuoted.indexOf("'");
-    let firstSubStr = potentiallyQuoted.substring(0, index);
-    let secSubStr = potentiallyQuoted.substring(index);
-    potentiallyQuoted = firstSubStr + "\\" + secSubStr;
-  }
-  return potentiallyQuoted;
-}
-
 // DELETE a task from DB
 
-tasksRouter.delete("/:id", async function (req, res, next) {
+tasksRouter.delete("/:id", async function (req: Request, res: Response) {
   let taskId = req.params.id;
   try {
-    let result: any = await db(`SELECT * FROM tasks WHERE id=${taskId}`);
-    if (result.data.length === 0) {
+    let task: Task[] = (await db(`SELECT * FROM tasks WHERE id=${taskId}`))
+      .data;
+    if (task.length === 0) {
       res.status(404).send({ error: "Task not found" });
     } else {
       await db(`DELETE FROM tasks WHERE id=${taskId}`);
-      let result: any = await db(`SELECT * FROM tasks`);
-      let tasks = result.data;
+      let tasks: Task[] = (await db(`SELECT * FROM tasks`)).data;
       res.status(201).send(tasks);
     }
-  } catch (err: any) {
-    res.status(500).send({ error: err.message });
+  } catch (err) {
+    res.status(500).send({ error: getErrorMessage(err) });
   }
 });
 
 // UPDATE completed in task
 
-tasksRouter.patch("/:id/completed", async function (req, res, next) {
-  const taskId = req.params.id;
-  const changes = req.body;
-  try {
-    await db(
-      `UPDATE tasks SET completed=${changes.completed} WHERE id=${taskId}`
-    );
-    let updatedTask: any = await db(`SELECT * FROM tasks WHERE id=${taskId}`);
-    res.status(201).send(updatedTask.data);
-  } catch (err: any) {
-    res.status(500).send({ error: err.message });
+tasksRouter.patch(
+  "/:id/completed",
+  async function (req: Request, res: Response) {
+    const taskId = req.params.id;
+    const changes = req.body;
+    try {
+      await db(
+        `UPDATE tasks SET completed=${changes.completed} WHERE id=${taskId}`
+      );
+      let updatedTask: Task[] = (
+        await db(`SELECT * FROM tasks WHERE id=${taskId}`)
+      ).data;
+      res.status(201).send(updatedTask);
+    } catch (err) {
+      res.status(500).send({ error: getErrorMessage(err) });
+    }
   }
-});
+);

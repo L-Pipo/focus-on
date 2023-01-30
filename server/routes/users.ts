@@ -1,7 +1,10 @@
-const { ensureSameUser } = require("../middleware/guards");
+import { ensureSameUser } from "../middleware/guards";
 
-import express, { Router } from "express";
+import { Router, Request, Response } from "express";
+import { User } from "../types/user";
+
 import { db } from "../model/helper";
+import { getErrorMessage } from "../utils/getErrorMessage";
 
 export const usersRouter = Router();
 
@@ -9,16 +12,14 @@ export const usersRouter = Router();
  * Get all users
  **/
 
-usersRouter.get("/", async function (req, res, next) {
-  let sql = "SELECT * FROM users ORDER BY username";
-
+usersRouter.get("/", async function (req: Request, res: Response) {
   try {
-    let results: any = await db(sql);
-    let users = results.data;
+    let users: User[] = (await db("SELECT * FROM users ORDER BY username"))
+      .data;
     users.forEach((u: any) => delete u.password); // don't return passwords
     res.send(users);
-  } catch (err: any) {
-    res.status(500).send({ error: err.message });
+  } catch (err) {
+    res.status(500).send({ error: getErrorMessage(err) });
   }
 });
 
@@ -27,17 +28,21 @@ usersRouter.get("/", async function (req, res, next) {
  * A user can only see his/her own profile info.
  **/
 
-usersRouter.get("/:userId", ensureSameUser, async function (req, res, next) {
-  let { userId } = req.params;
-  let sql = "SELECT * FROM users WHERE id = " + userId;
+usersRouter.get(
+  "/:userId",
+  ensureSameUser,
+  async function (req: Request, res: Response) {
+    let { userId } = req.params;
+    let sql = "SELECT * FROM users WHERE id = " + userId;
 
-  try {
-    let results: any = await db(sql);
-    // We know user exists because he/she is logged in!
-    let user = results.data[0];
-    delete user.password; // don't return the password
-    res.send(user);
-  } catch (err: any) {
-    res.status(500).send({ error: err.message });
+    try {
+      let results: any = await db(sql);
+      // We know user exists because he/she is logged in!
+      let user = results.data[0];
+      delete user.password; // don't return the password
+      res.send(user);
+    } catch (err: any) {
+      res.status(500).send({ error: err.message });
+    }
   }
-});
+);

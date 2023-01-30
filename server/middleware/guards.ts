@@ -11,7 +11,7 @@ const { SECRET_KEY } = require("../config");
  * Make sure the user is logged in
  **/
 
-function ensureUserLoggedIn(req: Request, res: Response, next: any) {
+export function ensureUserLoggedIn(req: Request, res: Response, next: any) {
   let token = _getToken(req);
 
   try {
@@ -31,7 +31,7 @@ function ensureUserLoggedIn(req: Request, res: Response, next: any) {
  * btw we have to make it a number because params are by default strings
  **/
 
-function ensureSameUser(req: Request, res: Response, next: any) {
+export function ensureSameUser(req: Request, res: Response, next: any) {
   let token = _getToken(req);
 
   try {

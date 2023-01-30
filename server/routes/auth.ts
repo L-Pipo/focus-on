@@ -1,9 +1,11 @@
-import express, { Router, Request, Response } from "express";
-import { db } from "../model/helper";
+import { Router, Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { getErrorMessage } from "../utils/getErrorMessage";
+
 import { User } from "../types/user";
+
+import { db } from "../model/helper";
+import { getErrorMessage } from "../utils/getErrorMessage";
 
 const { BCRYPT_WORK_FACTOR, SECRET_KEY } = require("../config");
 
@@ -37,9 +39,9 @@ authRouter.post("/login", async (req: Request, res: Response) => {
   let { username, password } = req.body;
 
   try {
-    let results: User[] = (await db(
-      `SELECT * FROM users WHERE username = '${username}'`
-    )).data;
+    let results: User[] = (
+      await db(`SELECT * FROM users WHERE username = '${username}'`)
+    ).data;
     if (results.length === 0) {
       // Username not found
       res.status(401).send({ error: "Login failed" });

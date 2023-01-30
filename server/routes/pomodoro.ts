@@ -1,18 +1,23 @@
-import express, { Router } from "express";
+import express, { Router, Request, Response } from "express";
+
+import { Pomodoro } from "../types/pomodoro";
+
 import { db } from "../model/helper";
+import { getErrorMessage } from "../utils/getErrorMessage";
 
 export const pomodoroRouter = Router();
 
 // GET pomodoro sessions for a specific day
 
-pomodoroRouter.get("/:userId/:day", async (req, res) => {
+pomodoroRouter.get("/:userId/:day", async (req: Request, res: Response) => {
   let userId = req.params.userId;
   let dayId = req.params.day;
   try {
-    let results: any = await db(
-      `SELECT * FROM pomodoro WHERE user_id=${userId} AND day_id = ${dayId}`
-    );
-    let sessions = results.data;
+    let sessions: Pomodoro[] = (
+      await db(
+        `SELECT * FROM pomodoro WHERE user_id=${userId} AND day_id = ${dayId}`
+      )
+    ).data;
     if (sessions.length === 0) {
       res.status(404).send({
         error: "Sorry, there are no pomodoro sessions for the requested day.",
@@ -20,8 +25,8 @@ pomodoroRouter.get("/:userId/:day", async (req, res) => {
     } else {
       res.send(sessions);
     }
-  } catch (err: any) {
-    res.status(500).send({ error: err.message });
+  } catch (err) {
+    res.status(500).send({ error: getErrorMessage(err) });
   }
 });
 
@@ -39,10 +44,9 @@ pomodoroRouter.post("/", async (req, res) => {
     `;
   try {
     await db(sql);
-    let result: any = await db("SELECT * FROM pomodoro");
-    let sessions = result.data;
+    let sessions: any = (await db("SELECT * FROM pomodoro")).data;
     res.status(201).send(sessions);
   } catch (err: any) {
-    res.status(500).send({ error: err.message });
+    res.status(500).send({ error: getErrorMessage(err) });
   }
 });
