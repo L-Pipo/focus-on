@@ -1,10 +1,15 @@
 require("dotenv").config();
 const mysql = require("mysql");
 
-module.exports = async function db(query) {
-  const results = {
+export async function db(query: any) : Promise<any> {
+  type Results = {
+    data: string[];
+    error: null | string;
+  };
+
+  const results: Results = {
     data: [],
-    error: null
+    error: null,
   };
   let promise = await new Promise((resolve, reject) => {
     const DB_HOST = process.env.DB_HOST;
@@ -17,14 +22,14 @@ module.exports = async function db(query) {
       user: DB_USER || "root",
       password: DB_PASS,
       database: DB_NAME || "database",
-      multipleStatements: true
+      multipleStatements: true,
     });
 
-    con.connect(function(err) {
+    con.connect(function (err: any) {
       if (err) throw err;
       console.log("Connected!");
 
-      con.query(query, function(err, result) {
+      con.query(query, function (err: any, result: any) {
         if (err) {
           results.error = err;
           console.log(err);
@@ -47,7 +52,7 @@ module.exports = async function db(query) {
           // results.data.push(result);
         } else if (result[0].constructor.name == "RowDataPacket") {
           // push each row (RowDataPacket) to data
-          result.forEach(row => results.data.push(row));
+          result.forEach((row: any) => results.data.push(row));
         } else if (result[0].constructor.name == "OkPacket") {
           // push the first item in result list to data (this accounts for situations
           // such as when the query ends with SELECT LAST_INSERT_ID() and returns an insertId)
@@ -60,5 +65,5 @@ module.exports = async function db(query) {
     });
   });
 
-  return promise;
-};
+  return promise as any;
+}

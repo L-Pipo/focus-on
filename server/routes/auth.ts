@@ -1,15 +1,21 @@
-var express = require("express");
-var router = express.Router();
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+import { Router, Request, Response } from "express";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+import { User } from "../types/user";
+
+import { db } from "../model/helper";
+import { getErrorMessage } from "../utils/getErrorMessage";
+
 const { BCRYPT_WORK_FACTOR, SECRET_KEY } = require("../config");
-const db = require("../model/helper");
+
+export const authRouter = Router();
 
 /**
  * Register a user
  **/
 
-router.post("/register", async (req, res) => {
+authRouter.post("/register", async (req: Request, res: Response) => {
   let { username, password, email } = req.body;
   let hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
@@ -21,7 +27,7 @@ router.post("/register", async (req, res) => {
     await db(sql);
     res.send({ message: "Registration succeeded" });
   } catch (err) {
-    res.status(500).send({ error: err.message });
+    res.status(500).send({ error: getErrorMessage(err) });
   }
 });
 
@@ -29,19 +35,19 @@ router.post("/register", async (req, res) => {
  * Log in a user
  **/
 
-router.post("/login", async (req, res) => {
+authRouter.post("/login", async (req: Request, res: Response) => {
   let { username, password } = req.body;
 
   try {
-    let results = await db(
-      `SELECT * FROM users WHERE username = '${username}'`
-    );
-    if (results.data.length === 0) {
+    let results: User[] = (
+      await db(`SELECT * FROM users WHERE username = '${username}'`)
+    ).data;
+    if (results.length === 0) {
       // Username not found
       res.status(401).send({ error: "Login failed" });
     } else {
-      let user = results.data[0]; // the user's row/record from the DB
-      let passwordsEqual = await bcrypt.compare(password, user.password);
+      let user = results[0]; // the user's row/record from the DB
+      let passwordsEqual = await bcrypt.compare(password, user.password!);
       if (passwordsEqual) {
         // Passwords match
         let payload = { userId: user.id };
@@ -60,8 +66,6 @@ router.post("/login", async (req, res) => {
       }
     }
   } catch (err) {
-    res.status(500).send({ error: err.message });
+    res.status(500).send({ error: getErrorMessage(err) });
   }
 });
-
-module.exports = router;

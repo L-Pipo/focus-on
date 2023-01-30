@@ -1,4 +1,6 @@
-const jwt = require("jsonwebtoken");
+import { Response, Request } from "express";
+import jwt from "jsonwebtoken";
+
 const { SECRET_KEY } = require("../config");
 
 /**
@@ -9,7 +11,7 @@ const { SECRET_KEY } = require("../config");
  * Make sure the user is logged in
  **/
 
-function ensureUserLoggedIn(req, res, next) {
+export function ensureUserLoggedIn(req: Request, res: Response, next: any) {
   let token = _getToken(req);
 
   try {
@@ -29,12 +31,12 @@ function ensureUserLoggedIn(req, res, next) {
  * btw we have to make it a number because params are by default strings
  **/
 
-function ensureSameUser(req, res, next) {
+export function ensureSameUser(req: Request, res: Response, next: any) {
   let token = _getToken(req);
 
   try {
     // Throws error on invalid/missing token
-    let payload = jwt.verify(token, SECRET_KEY);
+    let payload: any = jwt.verify(token, SECRET_KEY);
     // If we get here, a valid token was passed
     if (payload.userId === Number(req.params.userId)) {
       next();
@@ -51,14 +53,14 @@ function ensureSameUser(req, res, next) {
  * Authorization header string looks like: "Bearer <token>"
  **/
 
-function _getToken(req) {
+function _getToken(req: Request) {
   // Return '' if header not found
   if (!("authorization" in req.headers)) {
     return "";
   }
 
   // Split header into 'Bearer' and token
-  let authHeader = req.headers["authorization"];
+  let authHeader: any = req.headers["authorization"];
   let [str, token] = authHeader.split(" ");
 
   return str === "Bearer" ? token : "";
