@@ -2,8 +2,9 @@ import { Router, Request, Response } from "express";
 
 import { Task } from "../types/task";
 
-import { db } from "../model/helper";
+import { db } from "../database/db.helper";
 import { escapeQuote } from "../utils/escapeQuote";
+
 import { getErrorMessage } from "../utils/getErrorMessage";
 
 export const tasksRouter = Router();

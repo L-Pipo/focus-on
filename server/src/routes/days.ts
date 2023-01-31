@@ -4,12 +4,15 @@ import { Day } from "../types/day";
 import { Pomodoro } from "../types/pomodoro";
 import { Task } from "../types/task";
 
-import { db } from "../model/helper";
+import { db } from "../database/db.helper";
 import { getErrorMessage } from "../utils/getErrorMessage";
 
 export const daysRouter = Router();
 
 // GET all days
+
+// express elements like req and res should not be in the same file like my business logic --> put that out
+// probably part of the controller
 
 daysRouter.get("/:userId", async function (req: Request, res: Response) {
   let { userId } = req.params;

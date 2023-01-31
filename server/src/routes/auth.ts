@@ -4,10 +4,10 @@ import jwt from "jsonwebtoken";
 
 import { User } from "../types/user";
 
-import { db } from "../model/helper";
+import { db } from "../database/db.helper";
 import { getErrorMessage } from "../utils/getErrorMessage";
 
-const { BCRYPT_WORK_FACTOR, SECRET_KEY } = require("../config");
+const { BCRYPT_WORK_FACTOR, SECRET_KEY } = require("../configs/config");
 
 export const authRouter = Router();
 

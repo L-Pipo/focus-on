@@ -2,7 +2,7 @@ import express, { Router, Request, Response } from "express";
 
 import { Pomodoro } from "../types/pomodoro";
 
-import { db } from "../model/helper";
+import { db } from "../database/db.helper";
 import { getErrorMessage } from "../utils/getErrorMessage";
 
 export const pomodoroRouter = Router();
