@@ -4,7 +4,8 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 
-import { tasksRouter } from "./routes/tasks";
+// import { tasksRouter } from "./routes/tasks";
+import { tasksRouter } from "./controllers/tasks.controller";
 import { daysRouter } from "./routes/days";
 import { pomodoroRouter } from "./routes/pomodoro";
 import { authRouter } from "./routes/auth";
