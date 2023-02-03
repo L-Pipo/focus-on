@@ -3,12 +3,6 @@ import { db } from "../database/db.helper";
 import { Task } from "../types/task";
 
 export const tasksModel = {
-  // getTasksByDay(userId: any, day: any) {
-  //   return db(
-  //     `SELECT * FROM tasks WHERE user_id=${userId} AND day_id=${day}`
-  //   ).then((result) => result.data);
-  // },
-
   getTasksByDay(userId: any, day: any) {
     return db(
       `SELECT * FROM tasks WHERE user_id=${userId} AND day_id=${day}`

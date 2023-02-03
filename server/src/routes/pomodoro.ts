@@ -36,7 +36,6 @@ pomodoroRouter.get("/:userId/:day", async (req: Request, res: Response) => {
 // for what is it needed?
 
 pomodoroRouter.post("/", async (req, res) => {
-  // let userId = req.params.userId;
   let { day_id, user_id } = req.body;
   let sql = `
         INSERT INTO pomodoro (day_id, user_id)
