@@ -31,34 +31,15 @@ export const tasksService = {
     return tasksModel.deleteTask(taskId);
   },
 
-  //   updatedTask(taskId: any, changes: any) {
-  //     return tasksModel.updatedTask(taskId, changes);
-  //   },
+  updatedTask(taskId: any, changes: any) {
+    return tasksModel.updatedTask(taskId, changes);
+  },
 };
 
 // add types correctly?
 // add getErrorMessage (utils)?
 
 // Promise or async await?
-
-// tasksRouter.post("/", async (req: Request, res: Response) => {
-//   let { title, description, day_id, completed, user_id } = req.body;
-//   title = escapeQuote(title);
-//   description = escapeQuote(description);
-//   let sql = `
-//       INSERT INTO tasks (title, description, day_id, completed, user_id)
-//       VALUES ('${title}', '${description}', ${day_id}, ${completed}, ${user_id} )
-//   `;
-//   try {
-//     await db(sql);
-//     let tasks: Task[] = (
-//       await db(`SELECT * FROM tasks WHERE user_id=${user_id}`)
-//     ).data;
-//     res.status(201).send(tasks);
-//   } catch (err) {
-//     res.status(500).send({ error: getErrorMessage(err) });
-//   }
-// });
 
 // export const tasksService = {
 //   async getTasksByDay(userId: any, day: any) {

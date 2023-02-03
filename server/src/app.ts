@@ -7,7 +7,8 @@ import logger from "morgan";
 // import { tasksRouter } from "./routes/tasks";
 import { tasksRouter } from "./controllers/tasks.controller";
 import { daysRouter } from "./routes/days";
-import { pomodoroRouter } from "./routes/pomodoro";
+// import { pomodoroRouter } from "./routes/pomodoro";
+import { pomodoroRouter } from "./controllers/pomodoro.controller";
 import { authRouter } from "./routes/auth";
 import { usersRouter } from "./routes/users";
 

@@ -1,8 +1,5 @@
 import { Router, Response, Request } from "express";
 
-import { escapeQuote } from "../utils/escapeQuote";
-import { getErrorMessage } from "../utils/getErrorMessage";
-
 import { tasksService } from "../services/tasks.service";
 
 export const tasksRouter = Router();
@@ -30,33 +27,17 @@ tasksRouter.delete("/:id", (req: Request, res: Response) => {
     .catch((error: any) => res.status(error.status || 500).send());
 });
 
-// tasksRouter.patch("/:id/completed", (req: Request, res: Response) => {
-//   const taskId = req.params.id;
-//   const changes = req.body;
-//   tasksService
-//     .updatedTask(taskId, changes)
-//     .then((data: any) => res.send(data))
-//     .catch((error: any) => res.status(error.status || 500).send());
-// });
+tasksRouter.patch("/:id/completed", (req: Request, res: Response) => {
+  const taskId = req.params.id;
+  const changes = req.body;
+  tasksService
+    .updatedTask(taskId, changes)
+    .then((data: any) => res.send(data))
+    .catch((error: any) => res.status(error.status || 500).send());
+});
 
-// tasksRouter.patch(
-//   "/:id/completed",
-//   async function (req: Request, res: Response) {
-//     const taskId = req.params.id;
-//     const changes = req.body;
-//     try {
-//       await db(
-//         `UPDATE tasks SET completed=${changes.completed} WHERE id=${taskId}`
-//       );
-//       let updatedTask: Task[] = (
-//         await db(`SELECT * FROM tasks WHERE id=${taskId}`)
-//       ).data;
-//       res.status(201).send(updatedTask);
-//     } catch (err) {
-//       res.status(500).send({ error: getErrorMessage(err) });
-//     }
-//   }
-// );
+// response empty array
+// what should be the response?
 
 // tasksRouter.get("/:userId/:day", async function (req: Request, res: Response) {
 //   // pass arguments (userId, day) to tasksService
