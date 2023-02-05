@@ -23,7 +23,7 @@ function Overview(props) {
         console.log(response);
         let overviewData = await response.json();
         setOverviewData(overviewData.reverse());
-        // console.log(overviewData);
+        console.log(overviewData);
       } else {
         console.log(`Server error: ${response.status} ${response.statusText}`);
       }

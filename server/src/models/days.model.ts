@@ -1,7 +1,8 @@
 import { db } from "../database/db.helper";
+import { Day } from "../types/day";
 
 export const daysModel = {
-  async getAllDays(userId: any) {
+  async getAllDays(userId: any) : Promise<Day[]> {
     let resolvedDays: any = [];
     let days = (await db(`SELECT * FROM days WHERE user_id=${userId}`)).data;
     for (let date of await days) {
@@ -17,14 +18,15 @@ export const daysModel = {
       ).data;
 
       date["tasks"] = tasks;
-      date["pomodoro"] = pomodoros;
+      date["sessions"] = pomodoros;
 
       resolvedDays.push(date);
-      return resolvedDays;
+      
     }
+    return resolvedDays;
   },
 
-  async getOneDay(userId: any, dayId: any) {
+  async getOneDay(userId: any, dayId: any): Promise<Day> {
     let days = (
       await db(`SELECT * FROM days WHERE id=${dayId} AND user_id=${userId}`)
     ).data;
@@ -46,17 +48,26 @@ export const daysModel = {
 
   // sql syntax error
 
-  async addDay(userId: any, today: any) {
-    let days = await db(
-      `SELECT * FROM days WHERE date=${today} AND user_id=${userId}`
-    );
-    if (days.data !== 0) {
-      return "Day exists!";
+  async addDay(userId: number, today: string) : Promise<Day> {
+    let days : Day[] = (await db(
+      `SELECT * FROM days WHERE date="${today}" AND user_id=${userId}`
+    )).data;
+    console.log(days)
+    if (days.length !== 0) {
+      return days[0]
     } else {
-      return db(
-        `INSERT INTO days (date, user_id)
-      VALUES ("${today}", ${userId})`
-      ).then((result) => result.data);
+      await db(`INSERT INTO days (date, user_id)
+      VALUES ("${today}", ${userId})`);
+      let days: Day[] = (
+        await db(
+          `SELECT * FROM days WHERE date="${today}" AND user_id=${userId}`
+        )
+      ).data;
+      console.log(days);
+      return days[0];
+      // return db(
+      //   `INSERT INTO days (date, user_id) VALUES ("${today}", ${userId})`
+      // ).then((result) => result.data);
     }
   },
 };
