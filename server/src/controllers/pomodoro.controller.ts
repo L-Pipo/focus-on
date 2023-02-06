@@ -4,17 +4,23 @@ import { pomodoroService } from "../services/pomodoro.service";
 
 export const pomodoroRouter = Router();
 
-pomodoroRouter.get("/:userId/:day", (req: Request, res: Response) => {
-  pomodoroService
-    .getPomodoro(req.params.userId, req.params.day)
-    .then((data) => res.send(data))
-    .catch((error) => res.status(error.status || 500).send());
+pomodoroRouter.get("/:userId/:day", async (req: Request, res: Response) => {
+  const userId = req.params.userId;
+  const dayId = req.params.day;
+  try {
+    const pomodoros = await pomodoroService.getPomodoro(userId, dayId);
+    res.send(pomodoros);
+  } catch (error: any) {
+    res.status(error.status || 500).send();
+  }
 });
 
-pomodoroRouter.post("/", (req: Request, res: Response) => {
+pomodoroRouter.post("/", async (req: Request, res: Response) => {
   let { day_id, user_id } = req.body;
-  pomodoroService
-    .addPomodoro(day_id, user_id)
-    .then((data) => res.send(data))
-    .catch((error) => res.status(error.status || 500).send());
+  try {
+    const pomodoros = await pomodoroService.addPomodoro(day_id, user_id);
+    res.send(pomodoros);
+  } catch (error: any) {
+    res.status(error.status || 500).send();
+  }
 });

@@ -4,11 +4,14 @@ import { daysService } from "../services/days.service";
 
 export const daysRouter = Router();
 
-daysRouter.get("/:userId", (req: Request, res: Response) => {
-  daysService
-    .getAllDays(req.params.userId)
-    .then((data) => res.send(data))
-    .catch((error) => res.status(error.status || 500).send());
+daysRouter.get("/:userId", async (req: Request, res: Response) => {
+  const userId = req.params.id;
+  try {
+    const days = await daysService.getAllDays(userId);
+    res.send(days);
+  } catch (error: any) {
+    res.status(error.status || 500).send();
+  }
 });
 
 daysRouter.get(
@@ -16,7 +19,6 @@ daysRouter.get(
   async (req: Request, res: Response) => {
     const userId = req.params.userId;
     const dayId = req.params.id;
-
     try {
       const days = await daysService.getOneDay(userId, dayId);
       res.send(days);
@@ -26,11 +28,12 @@ daysRouter.get(
   }
 );
 
-daysRouter.post("/:userId", (req: Request, res: Response) => {
+daysRouter.post("/:userId", async (req: Request, res: Response) => {
   const userId = req.params.userId;
-  // console.log(userId);
-  daysService
-    .addDay(userId)
-    .then((data) => res.send(data))
-    .catch((error) => res.status(error.status || 500).send());
+  try {
+    const day = await daysService.addDay(userId);
+    res.send(day);
+  } catch (error: any) {
+    res.status(error.status || 500).send();
+  }
 });

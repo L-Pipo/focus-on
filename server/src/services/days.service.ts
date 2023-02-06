@@ -5,8 +5,8 @@ import { Day } from "../types/day";
 export const daysService = {
   async getAllDays(userId: any): Promise<Day[]> {
     try {
-      const day = await daysModel.getAllDays(userId);
-      return day;
+      const days = await daysModel.getAllDays(userId);
+      return days;
     } catch (error) {
       console.log(error);
       return Promise.reject({
