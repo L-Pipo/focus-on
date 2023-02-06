@@ -5,6 +5,7 @@ import { Day } from "../types/day";
 export const daysService = {
   async getAllDays(userId: any): Promise<Day[]> {
     try {
+      console.log("service: " + userId);
       const days = await daysModel.getAllDays(userId);
       return days;
     } catch (error) {

@@ -4,23 +4,10 @@ import { Day } from "../types/day";
 export const daysModel = {
   async getAllDays(userId: any): Promise<Day[]> {
     let resolvedDays: any = [];
-    let days = (await db(`SELECT * FROM days WHERE user_id=${userId}`)).data;
-    for (let date of await days) {
-      let tasks = (
-        await db(
-          `SELECT * FROM tasks WHERE day_id=${date.id} AND user_id=${userId}`
-        )
-      ).data;
-      let pomodoros = (
-        await db(
-          `SELECT * FROM pomodoro WHERE day_id=${date.id} AND user_id=${userId}`
-        )
-      ).data;
+    let dayIds = (await db(`SELECT id FROM days WHERE user_id=${userId}`)).data;
 
-      date["tasks"] = tasks;
-      date["sessions"] = pomodoros;
-
-      resolvedDays.push(date);
+    for (let dayId of dayIds) {
+      resolvedDays.push(await this.getOneDay(userId, dayId.id));
     }
     return resolvedDays;
   },
@@ -60,6 +47,8 @@ export const daysModel = {
       // SQL query works! (tested with postman)
       // wrong data format
       // days is undefined
+      // solution: no array (therefore either array in backend or delete 0 in addday component)
+      // maybe better to send back id and not object (then also change frontend)
       return days[0];
     } else {
       await db(`INSERT INTO days (date, user_id)

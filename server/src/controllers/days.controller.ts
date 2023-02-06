@@ -5,7 +5,7 @@ import { daysService } from "../services/days.service";
 export const daysRouter = Router();
 
 daysRouter.get("/:userId", async (req: Request, res: Response) => {
-  const userId = req.params.id;
+  const userId = req.params.userId;
   try {
     const days = await daysService.getAllDays(userId);
     res.send(days);

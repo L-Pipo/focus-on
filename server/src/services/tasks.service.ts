@@ -38,20 +38,3 @@ export const tasksService = {
 
 // add types correctly?
 // add getErrorMessage (utils)?
-
-// Promise or async await?
-
-// export const tasksService = {
-//   async getTasksByDay(userId: any, day: any) {
-//     let tasks = tasksModel.getTasksByDay(userId, day);
-//     console.log("Tasks in Service: " + tasks);
-//     if ((await tasks).length === 0) {
-//       return {
-//         status: errorType.NOT_FOUND,
-//         message: "There are no tasks for the requested day",
-//       };
-//     } else {
-//       return tasks;
-//     }
-//   },
-// };
