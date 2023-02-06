@@ -11,20 +11,24 @@ daysRouter.get("/:userId", (req: Request, res: Response) => {
     .catch((error) => res.status(error.status || 500).send());
 });
 
-daysRouter.get("/:userId/currentday/:id", async (req: Request, res: Response) => {
-  const userId = req.params.userId;
-  const dayId = req.params.id;
+daysRouter.get(
+  "/:userId/currentday/:id",
+  async (req: Request, res: Response) => {
+    const userId = req.params.userId;
+    const dayId = req.params.id;
 
-  try {
-    const days = await daysService.getOneDay(userId, dayId)
-    res.send(days)
-  } catch(error: any){
-    res.status(error.status || 500).send()
+    try {
+      const days = await daysService.getOneDay(userId, dayId);
+      res.send(days);
+    } catch (error: any) {
+      res.status(error.status || 500).send();
+    }
   }
-});
+);
 
 daysRouter.post("/:userId", (req: Request, res: Response) => {
   const userId = req.params.userId;
+  // console.log(userId);
   daysService
     .addDay(userId)
     .then((data) => res.send(data))

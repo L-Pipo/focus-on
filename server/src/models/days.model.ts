@@ -2,7 +2,7 @@ import { db } from "../database/db.helper";
 import { Day } from "../types/day";
 
 export const daysModel = {
-  async getAllDays(userId: any) : Promise<Day[]> {
+  async getAllDays(userId: any): Promise<Day[]> {
     let resolvedDays: any = [];
     let days = (await db(`SELECT * FROM days WHERE user_id=${userId}`)).data;
     for (let date of await days) {
@@ -21,7 +21,6 @@ export const daysModel = {
       date["sessions"] = pomodoros;
 
       resolvedDays.push(date);
-      
     }
     return resolvedDays;
   },
@@ -46,15 +45,22 @@ export const daysModel = {
     return days[0];
   },
 
-  // sql syntax error
-
-  async addDay(userId: number, today: string) : Promise<Day> {
-    let days : Day[] = (await db(
-      `SELECT * FROM days WHERE date="${today}" AND user_id=${userId}`
-    )).data;
-    console.log(days)
+  async addDay(userId: number, today: string): Promise<Day> {
+    let days: Day[] = (
+      await db(`SELECT * FROM days WHERE date="${today}" AND user_id=${userId}`)
+    ).data;
+    console.log("days model: " + days);
+    console.log("days[0]: " + days[0]);
+    console.log("type of days: " + typeof days);
+    // console.log("user Id model: " + userId);
+    console.log("days[0] JSON.stringify: " + JSON.stringify(days[0]));
     if (days.length !== 0) {
-      return days[0]
+      // return error? otherwise service will never know if day already existed
+      // return Promise.reject() ??
+      // SQL query works! (tested with postman)
+      // wrong data format
+      // days is undefined
+      return days[0];
     } else {
       await db(`INSERT INTO days (date, user_id)
       VALUES ("${today}", ${userId})`);
@@ -63,11 +69,8 @@ export const daysModel = {
           `SELECT * FROM days WHERE date="${today}" AND user_id=${userId}`
         )
       ).data;
-      console.log(days);
+      // console.log(days);
       return days[0];
-      // return db(
-      //   `INSERT INTO days (date, user_id) VALUES ("${today}", ${userId})`
-      // ).then((result) => result.data);
     }
   },
 };
