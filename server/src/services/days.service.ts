@@ -8,7 +8,6 @@ export const daysService = {
       const days = await daysModel.getAllDays(userId);
       return days;
     } catch (error) {
-      console.log(error);
       return Promise.reject({
         status: errorType.NOT_FOUND,
         message: "Not found",
