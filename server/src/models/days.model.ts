@@ -36,19 +36,7 @@ export const daysModel = {
     let days: Day[] = (
       await db(`SELECT * FROM days WHERE date="${today}" AND user_id=${userId}`)
     ).data;
-    console.log("days model: " + days);
-    console.log("days[0]: " + days[0]);
-    console.log("type of days: " + typeof days);
-    // console.log("user Id model: " + userId);
-    console.log("days[0] JSON.stringify: " + JSON.stringify(days[0]));
     if (days.length !== 0) {
-      // return error? otherwise service will never know if day already exists
-      // return Promise.reject() ??
-      // SQL query works! (tested with postman)
-      // wrong data format
-      // days is undefined
-      // solution: no array (therefore either array in backend or delete 0 in addday component)
-      // maybe better to send back id and not object (then also change frontend)
       return days[0];
     } else {
       await db(`INSERT INTO days (date, user_id)
@@ -58,8 +46,10 @@ export const daysModel = {
           `SELECT * FROM days WHERE date="${today}" AND user_id=${userId}`
         )
       ).data;
-      // console.log(days);
       return days[0];
     }
   },
 };
+function getOneDay(userId: any, id: any): any {
+  throw new Error("Function not implemented.");
+}

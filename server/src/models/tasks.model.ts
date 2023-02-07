@@ -31,13 +31,3 @@ export const tasksModel = {
     return db(`SELECT * FROM tasks WHERE id=${taskId}`);
   },
 };
-
-// export const tasksModel = {
-//   async getTasksByDay(userId: any, day: any) {
-//     let tasks: Task[] = await db(
-//       `SELECT * FROM tasks WHERE user_id=${userId} AND day_id=${day}`
-//     );
-//     console.log("Tasks in Model: " + tasks);
-//     return tasks;
-//   },
-// };
