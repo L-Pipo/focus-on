@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start:dev": "nodemon",
-    "migrate": "node model/database.js"
+    "migrate": "node src/database/db.config.ts"
   },
   "dependencies": {
     "@types/http-errors": "^2.0.1",

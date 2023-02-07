@@ -22,7 +22,8 @@ function AddDay(props) {
       let response = await fetch(`/days/${userId}`, options);
       if (response.ok) {
         let newDay = await response.json();
-        let dayId = newDay[0].id;
+        let dayId = newDay.id;
+        console.log("dayId: " + dayId);
         navigate(`/current/${dayId}`);
       } else {
         console.log(`Server error: ${response.status} ${response.statusText}`);

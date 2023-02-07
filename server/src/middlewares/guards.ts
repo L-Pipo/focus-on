@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import jwt from "jsonwebtoken";
 
-const { SECRET_KEY } = require("../config");
+const { SECRET_KEY } = require("../configs/config");
 
 /**
  * Guards are middleware that "protect" route functions
