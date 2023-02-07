@@ -50,6 +50,3 @@ export const daysModel = {
     }
   },
 };
-function getOneDay(userId: any, id: any): any {
-  throw new Error("Function not implemented.");
-}

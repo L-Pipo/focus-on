@@ -1,40 +1,52 @@
 import { errorType } from "../controllers/helpers";
 import { tasksModel } from "../models/tasks.model";
-import { escapeQuote } from "../utils/escapeQuote";
+
 import { Task } from "../types/task";
 
 export const tasksService = {
-  getTasksByDay(userId: any, day: any) {
-    return tasksModel.getTasksByDay(userId, day).then((result) =>
-      result.length !== 0
-        ? tasksModel.getTasksByDay(userId, day)
-        : Promise.reject({
-            status: errorType.NOT_FOUND,
-            message: "Not found",
-          })
-    );
-  },
-
-  addTask(
+  async addTask(
     title: any,
     description: any,
     day_id: any,
     completed: any,
     user_id: any
-  ): any {
-    title = escapeQuote(title);
-    description = escapeQuote(description);
-    return tasksModel.addTask(title, description, day_id, completed, user_id);
+  ): Promise<Task[]> {
+    try {
+      const tasks = await tasksModel.addTask(
+        title,
+        description,
+        day_id,
+        completed,
+        user_id
+      );
+      return tasks;
+    } catch (error) {
+      return Promise.reject({
+        status: errorType.NOT_FOUND,
+        message: "Not found",
+      });
+    }
   },
 
-  deleteTask(taskId: any) {
-    return tasksModel.deleteTask(taskId);
+  async deleteTask(taskId: any): Promise<Task> {
+    try {
+      return tasksModel.deleteTask(taskId);
+    } catch (error) {
+      return Promise.reject({
+        status: errorType.NOT_FOUND,
+        message: "Not found",
+      });
+    }
   },
 
-  updatedTask(taskId: any, changes: any) {
-    return tasksModel.updatedTask(taskId, changes);
+  async updatedTask(taskId: any, changes: any) {
+    try {
+      return tasksModel.updatedTask(taskId, changes);
+    } catch (error) {
+      return Promise.reject({
+        status: errorType.NOT_FOUND,
+        message: "Not found",
+      });
+    }
   },
 };
-
-// add types correctly?
-// add getErrorMessage (utils)?

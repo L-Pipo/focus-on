@@ -32,9 +32,6 @@ pomodoroRouter.get("/:userId/:day", async (req: Request, res: Response) => {
 
 // POST new pomodoro session
 
-// data that is being send back doesn't make sense
-// for what is it needed?
-
 pomodoroRouter.post("/", async (req, res) => {
   let { day_id, user_id } = req.body;
   let sql = `

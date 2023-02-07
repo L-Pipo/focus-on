@@ -17,7 +17,7 @@ function CurrentDay(props) {
     getCurrentDayData();
   }, []);
 
-  // get userId via helpers --> Locale and not params!
+  // get userId via helpers --> Locale and not params
 
   let userId = Local.getUserId();
 

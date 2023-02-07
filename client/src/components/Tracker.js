@@ -57,7 +57,7 @@ function Tracker(props) {
       setTime(() => 1500);
 
       async function sendNewSession() {
-        let session = { day_id: props.dayId, user_id: userId };
+        let session = { user_id: userId, day_id: props.dayId };
         let options = {
           method: "POST",
           headers: {

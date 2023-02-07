@@ -5,7 +5,6 @@ import { Day } from "../types/day";
 export const daysService = {
   async getAllDays(userId: any): Promise<Day[]> {
     try {
-      console.log("service: " + userId);
       const days = await daysModel.getAllDays(userId);
       return days;
     } catch (error) {
@@ -22,7 +21,6 @@ export const daysService = {
       const day = await daysModel.getOneDay(userId, dayId);
       return day;
     } catch (error) {
-      console.log(error);
       return Promise.reject({
         status: errorType.NOT_FOUND,
         message: "Not found",
@@ -36,7 +34,6 @@ export const daysService = {
     var mm = String(getDay.getMonth() + 1).padStart(2, "0");
     var yyyy = getDay.getFullYear();
     let today = dd + "." + mm + "." + yyyy;
-    // console.log(userId);
 
     try {
       const day = await daysModel.addDay(userId, today);
