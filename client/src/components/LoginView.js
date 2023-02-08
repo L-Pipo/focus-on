@@ -82,6 +82,7 @@ function LoginView(props) {
                   className="form-control"
                   value={username}
                   onChange={handleChange}
+                  focusBorderColor="brand.200"
                 />
               </InputGroup>
 
@@ -99,6 +100,7 @@ function LoginView(props) {
                   value={password}
                   onChange={handleChange}
                   placeholder="Password"
+                  focusBorderColor="brand.200"
                 />
               </InputGroup>
             </Stack>
@@ -106,11 +108,11 @@ function LoginView(props) {
             <Button
               type="submit"
               borderWidth={1}
-              borderColor="#FFECEF"
+              borderColor="brand.300"
               borderRadius={"lg"}
-              bg="#251B37"
-              color="#FFCACA"
-              _hover={{ background: "#372948" }}
+              bg="brand.100"
+              color="brand.200"
+              _hover={{ background: "brand.400" }}
               mt={4}
               mb={4}
               p={6}
@@ -120,7 +122,7 @@ function LoginView(props) {
             </Button>
             <Text>
               Don't have an account?{" "}
-              <Link color="#FFCACA" href="/">
+              <Link color="brand.200" href="/">
                 Sign up here
               </Link>
             </Text>

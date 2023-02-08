@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <div>
       <Text
-        color="#FFECEF"
+        color="brand.300"
         position="absolute"
         bottom="0"
         width="100%"

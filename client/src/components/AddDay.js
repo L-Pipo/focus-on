@@ -42,7 +42,7 @@ function AddDay(props) {
       ml={10}
       borderWidth="2px"
       borderRadius={"lg"}
-      borderColor={"#FFECEF"}
+      borderColor="brand.300"
     >
       <GridItem color="#FFECEF" p={5}>
         <Text textAlign="left" fontSize="xl">
@@ -54,9 +54,9 @@ function AddDay(props) {
       </GridItem>
       <GridItem textAlign="left" p={5}>
         <Button
-          bg="#FFCACA"
-          color="#372948"
-          _hover={{ background: "#FFECEF" }}
+          bg="brand.200"
+          color="brand.400"
+          _hover={{ background: "brand.300" }}
           onClick={insertDay}
         >
           Yes! Plan new day!

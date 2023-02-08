@@ -30,7 +30,7 @@ function WelcomeView(props) {
           <Register loginCb={props.loginCb} />
           <Text>
             Already have an account?{" "}
-            <Link color="#FFCACA" href="/login">
+            <Link color="brand.200" href="/login">
               Sign in here
             </Link>
           </Text>

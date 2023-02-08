@@ -69,7 +69,7 @@ function NavBar(props) {
             margin="0px"
           >
             <GridItem
-              color="#FFECEF"
+              color="brand.300"
               fontWeight="bold"
               justifySelf="start"
               colSpan={2}
@@ -94,21 +94,21 @@ function NavBar(props) {
                 "
                   />
                 </MenuButton>
-                <MenuList backgroundColor="#FFECEF" color="#251B37">
+                <MenuList backgroundColor="brand.300" color="brand.100">
                   <MenuItem
-                    _hover={{ backgroundColor: "#FFCACA" }}
+                    _hover={{ backgroundColor: "brand.200" }}
                     onClick={seeProfile}
                   >
                     Profile
                   </MenuItem>
                   <MenuItem
-                    _hover={{ backgroundColor: "#FFCACA" }}
+                    _hover={{ backgroundColor: "brand.200" }}
                     onClick={seeSettings}
                   >
                     Settings
                   </MenuItem>
                   <MenuItem
-                    _hover={{ backgroundColor: "#FFCACA" }}
+                    _hover={{ backgroundColor: "brand.200" }}
                     onClick={props.logoutCb}
                   >
                     Logout
@@ -127,7 +127,7 @@ function NavBar(props) {
             margin="0px"
           >
             <GridItem
-              color="#FFECEF"
+              color="brand.300"
               fontWeight="bold"
               justifySelf="start"
               colSpan={2}
@@ -140,7 +140,7 @@ function NavBar(props) {
             </GridItem>
             <GridItem colSpan={3} width="20px"></GridItem>
             <GridItem colSpan={1}>
-              <Container marginTop="6%" color="#FFECEF">
+              <Container marginTop="6%" color="brand.300">
                 <Breadcrumb separator=" ">
                   <BreadcrumbItem>
                     <BreadcrumbLink onClick={seeProfile}>
@@ -155,11 +155,11 @@ function NavBar(props) {
                   <BreadcrumbItem>
                     <Button
                       borderWidth={1}
-                      borderColor="#FFECEF"
+                      borderColor="brand.300"
                       borderRadius={"lg"}
-                      bg="#251B37"
-                      color="#FFCACA"
-                      _hover={{ background: "#372948" }}
+                      bg="brand.100"
+                      color="brand.200"
+                      _hover={{ background: "brand.400" }}
                       onClick={props.logoutCb}
                     >
                       Logout

@@ -47,11 +47,11 @@ function DayCard(props) {
     <GridItem
       w="100%"
       h="200"
-      bg="#FFECEF"
-      color="#372948"
+      bg="brand.300"
+      color="brand.400"
       borderRadius="lg"
       borderWidth="medium"
-      borderColor="#FFCACA"
+      borderColor="brand.200"
       cursor="pointer"
       onClick={changeView}
       _hover={{
