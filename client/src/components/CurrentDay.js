@@ -50,7 +50,7 @@ function CurrentDay(props) {
       <NavBar logoutCb={props.logoutCb} changeViewCb={props.changeView} />
       <Grid>
         <GridItem mb={8}>
-          <Text color="#FFECEF" fontSize="3xl">
+          <Text color="brand.300" fontSize="3xl">
             Focus Dashboard: {currentDayData.date}
           </Text>
         </GridItem>
@@ -71,11 +71,11 @@ function CurrentDay(props) {
       </SimpleGrid>
       <Button
         borderWidth={1}
-        borderColor="#FFECEF"
+        borderColor="brand.300"
         borderRadius={"lg"}
-        bg="#251B37"
-        color="#FFCACA"
-        _hover={{ background: "#372948" }}
+        bg="brand.100"
+        color="brand.200"
+        _hover={{ background: "brand.400" }}
         mt={4}
         mb={4}
         p={6}

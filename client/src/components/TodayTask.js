@@ -107,7 +107,7 @@ function TodayTask(props) {
   }
 
   return (
-    <Container color="#FFECEF">
+    <Container color="brand.300">
       <Container>
         <Text fontSize="xl" mb={5}>
           Today's Tasks:
@@ -132,7 +132,7 @@ function TodayTask(props) {
                 <AccordionIcon />
               </AccordionButton>
             </h2>
-            <AccordionPanel pb={4} textAlign={"left"} bg={"#372948"}>
+            <AccordionPanel pb={4} textAlign={"left"} bg={"brand.400"}>
               {element.description}
               <br></br>
               <Container display={"flex"} justifyContent={"flex-end"}>
@@ -140,20 +140,20 @@ function TodayTask(props) {
                   aria-label="Mark task as done"
                   icon={<CheckIcon />}
                   m={2}
-                  bg="#FFCACA"
-                  color="#372948"
+                  bg="brand.200"
+                  color="brand.400"
                   size={"xs"}
-                  _hover={{ background: "#FFECEF" }}
+                  _hover={{ background: "brand.300" }}
                   onClick={() => updateTask(element.id)}
                 />
                 <IconButton
                   aria-label="Delete task"
                   icon={<DeleteIcon />}
-                  bg="#FFCACA"
+                  bg="brand.200"
                   m={2}
-                  color="#372948"
+                  color="brand.400"
                   size={"xs"}
-                  _hover={{ background: "#FFECEF" }}
+                  _hover={{ background: "brand.400" }}
                   onClick={() => deleteTask(element.id)}
                 />
               </Container>
@@ -175,6 +175,7 @@ function TodayTask(props) {
               name="todo"
               value={inputData.todo}
               onChange={handleChange}
+              focusBorderColor="brand.200"
             />
           </label>
           <label>
@@ -185,13 +186,14 @@ function TodayTask(props) {
               name="description"
               value={inputData.description}
               onChange={handleChange}
+              focusBorderColor="brand.200"
             />
           </label>
           <Button
             m={2}
-            bg="#FFCACA"
-            color="#372948"
-            _hover={{ background: "#FFECEF" }}
+            bg="brand.200"
+            color="brand.400"
+            _hover={{ background: "brand.300" }}
             type="submit"
           >
             Add

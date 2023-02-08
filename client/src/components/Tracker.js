@@ -125,9 +125,9 @@ function Tracker(props) {
 
   return (
     <Container
-      color="#FFECEF"
+      color="brand.300"
       borderWidth={1}
-      borderColor="#F2D1D1"
+      borderColor="brand.500"
       borderRadius={"2xl"}
       height="550px"
     >
@@ -142,13 +142,13 @@ function Tracker(props) {
               <IconButton
                 aria-label="Information"
                 icon={<InfoOutlineIcon />}
-                bg="#251B37"
-                color="#FFCACA"
-                _hover={{ background: "#372948" }}
+                bg="brand.100"
+                color="brand.200"
+                _hover={{ background: "brand.400" }}
                 size="lg"
               />
             </PopoverTrigger>
-            <PopoverContent bg="#372948" textAlign={"left"}>
+            <PopoverContent bg="brand.400" textAlign={"left"}>
               <PopoverArrow />
               <PopoverCloseButton />
               <PopoverHeader>Instructions</PopoverHeader>
@@ -175,7 +175,7 @@ function Tracker(props) {
         <CircularProgress
           mt={0}
           value={(time / 1500) * 100}
-          color="#F2D1D1"
+          color="brand.500"
           size="xs"
         >
           <CircularProgressLabel fontSize="large">
@@ -187,10 +187,10 @@ function Tracker(props) {
         <Button
           isDisabled={time < 1500}
           onClick={startTimer}
-          bg="#FFCACA"
-          color="#372948"
+          bg="brand.200"
+          color="brand.400"
           mr={2}
-          _hover={{ background: "#FFECEF" }}
+          _hover={{ background: "brand.300" }}
         >
           Start
         </Button>
@@ -198,9 +198,9 @@ function Tracker(props) {
           <Button
             onClick={intervalId ? pauseTimer : startTimer}
             mr={2}
-            bg="#FFCACA"
-            color="#372948"
-            _hover={{ background: "#FFECEF" }}
+            bg="brand.200"
+            color="brand.400"
+            _hover={{ background: "brand.300" }}
           >
             {intervalId ? "Timeout" : "Continue"}
           </Button>
@@ -208,9 +208,9 @@ function Tracker(props) {
         {time < 1500 && (
           <Button
             onClick={resetTimer}
-            bg="#FFCACA"
-            color="#372948"
-            _hover={{ background: "#FFECEF" }}
+            bg="brand.200"
+            color="brand.400"
+            _hover={{ background: "brand.300" }}
           >
             Reset
           </Button>
